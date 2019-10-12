@@ -4,32 +4,17 @@
 
 \usepackage{graphicx,url}
 
-\usepackage[brazil]{babel}   
-%\usepackage[latin1]{inputenc}  
 \usepackage[utf8]{inputenc}  
-% UTF-8 encoding is recommended by ShareLaTex
 
      
 \sloppy
 
 \title{Instructions for Authors of SBC Conferences\\ Papers and Abstracts}
 
-\author{Luciana P. Nedel\inst{1}, Rafael H. Bordini\inst{2}, Flávio Rech
-  Wagner\inst{1}, Jomi F. Hübner\inst{3} }
+\author{Gurdis Viorel, Turcan Olga}
 
+\address{Babes-Bolyai University, Cluj-Napoca\\}
 
-\address{Instituto de Informática -- Universidade Federal do Rio Grande do Sul
-  (UFRGS)\\
-  Caixa Postal 15.064 -- 91.501-970 -- Porto Alegre -- RS -- Brazil
-\nextinstitute
-  Department of Computer Science -- University of Durham\\
-  Durham, U.K.
-\nextinstitute
-  Departamento de Sistemas e Computação\\
-  Universidade Regional de Blumenal (FURB) -- Blumenau, SC -- Brazil
-  \email{\{nedel,flavio\}@inf.ufrgs.br, R.Bordini@durham.ac.uk,
-  jomi@inf.furb.br}
-}
 
 \begin{document} 
 
@@ -42,16 +27,6 @@
   Portuguese (``resumo''). In both cases, abstracts should not have more than
   10 lines and must be in the first page of the paper.
 \end{abstract}
-     
-\begin{resumo} 
-  Este meta-artigo descreve o estilo a ser usado na confecção de artigos e
-  resumos de artigos para publicação nos anais das conferências organizadas
-  pela SBC. É solicitada a escrita de resumo e abstract apenas para os artigos
-  escritos em português. Artigos em inglês deverão apresentar apenas abstract.
-  Nos dois casos, o autor deve tomar cuidado para que o resumo (e o abstract)
-  não ultrapassem 10 linhas cada, sendo que ambos devem estar na primeira
-  página do artigo.
-\end{resumo}
 
 
 \section{Introduction}
@@ -81,95 +56,14 @@ Three classifiers were trained and compared to each other based on features
 mentioned above: k-Nearest Neighbor, Linear Discriminant Analysis, Support 
 Vector Machine. The final solution relies on HSV color histogram and 
 Difference-of-Gaussian features and a SVM classifier, which reached an 
-accuracy of 99.8 \%.
-
-\section{CD-ROMs and Printed Proceedings}
-
-In some conferences, the papers are published on CD-ROM while only the
-abstract is published in the printed Proceedings. In this case, authors are
-invited to prepare two final versions of the paper. One, complete, to be
-published on the CD and the other, containing only the first page, with
-abstract and ``resumo'' (for papers in Portuguese).
-
-\section{Sections and Paragraphs}
-
-Section titles must be in boldface, 13pt, flush left. There should be an extra
-12 pt of space before each title. Section numbering is optional. The first
-paragraph of each section should not be indented, while the first lines of
-subsequent paragraphs should be indented by 1.27 cm.
-
-\subsection{Subsections}
-
-The subsection titles must be in boldface, 12pt, flush left.
-
-\section{Figures and Captions}\label{sec:figs}
-
-
-Figure and table captions should be centered if less than one line
-(Figure~\ref{fig:exampleFig1}), otherwise justified and indented by 0.8cm on
-both margins, as shown in Figure~\ref{fig:exampleFig2}. The caption font must
-be Helvetica, 10 point, boldface, with 6 points of space before and after each
-caption.
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=.5\textwidth]{fig1.jpg}
-\caption{A typical figure}
-\label{fig:exampleFig1}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=.3\textwidth]{fig2.jpg}
-\caption{This figure is an example of a figure caption taking more than one
-  line and justified considering margins mentioned in Section~\ref{sec:figs}.}
-\label{fig:exampleFig2}
-\end{figure}
-
-In tables, try to avoid the use of colored or shaded backgrounds, and avoid
-thick, doubled, or unnecessary framing lines. When reporting empirical data,
-do not use more decimal digits than warranted by their precision and
-reproducibility. Table caption must be placed before the table (see Table 1)
-and the font used must also be Helvetica, 10 point, boldface, with 6 points of
-space before and after each caption.
-
-\begin{table}[ht]
-\centering
-\caption{Variables to be considered on the evaluation of interaction
-  techniques}
-\label{tab:exTable1}
-\smallskip
-\begin{tabular}{|l|c|c|}
-\hline
-& Value 1 & Value 2\\[0.5ex]
-\hline
-&&\\[-2ex]
-Case 1 & 1.0 $\pm$ 0.1 & 1.75$\times$10$^{-5}$ $\pm$ 5$\times$10$^{-7}$\\[0.5ex]
-\hline
-&&\\[-2ex]
-Case 2 & 0.003(1) & 100.0\\[0.5ex]
-\hline
-\end{tabular}
-\end{table}
-
-\section{Images}
-
-All images and illustrations should be in black-and-white, or gray tones,
-excepting for the papers that will be electronically available (on CD-ROMs,
-internet, etc.). The image resolution on paper should be about 600 dpi for
-black-and-white images, and 150-300 dpi for grayscale images.  Do not include
-images with excessive resolution, as they may take hours to print, without any
-visible difference in the result. 
-
-\section{References}
-
-Bibliographic references must be unambiguous and uniform.  We recommend giving
-the author names references in brackets, e.g. \cite{knuth:84},
-\cite{boulic:91}, and \cite{smith:99}.
-
-The references must be listed using 12 point font size, with 6 points of space
-before each reference. The first line of each reference should not be
-indented, while the subsequent should be indented by 0.5 cm.
+accuracy of 99.8 \%.\\\\
+An alternate approach for vacant parking space detection is described in \cite{debaditya}, which uses features extracted by a pre-trained CNN to train an SVM classifier for the detection of parking occupancy in a CCTV image sequence.
+The CNN extracts features from the publicly available PKLot dataset which consists of more than 12000 images collected from 3 parking sites on different weather conditions. 
+Consequently, the extracted features from images of the PKLot dataset were used to train and test a binary SVM classifier.
+The evaluation of the classification accuracy is done by cross validation on the PKLot dataset and the transfer learning ability on the Barry Street dataset, which was created for the purpose of that research and includes a sequence of images captured by a camera overlooking a street with marked parking places.\\\\
+The binary classification using the deep features achieved consistently reliable results with an average accuracyof 99.7\% across different weather conditions for the PKLot dataset.
+As transfer learning was a more challenging task because the classifier was required to recognise unfamiliar images, the classification of Barry street images achieved the overall accuracy of 96.65\%.
+It is worth mentioning that the processing time for each image segment of the parking spaces is 0.067 seconds on a simple desktop computer which means it takes approximately 2 seconds to process all the parking spaces in an image and hence the solution is suitable for real-time applications without any dedicated hardware.
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
