@@ -2,11 +2,11 @@
 
 ## TODO
 - Lab2
-    [x] README
-    [x] Choose Related Works
-    [ ] Summarize Related Works + usefull tools
-    [ ] Documentation
-    [ ] App flow 
+[x] README  
+[x] Choose Related Works  
+[ ] Summarize Related Works + usefull tools  
+[ ] Documentation  
+[ ] App flow  
 
 ## Useful links
 - https://github.com/gstark0/Parq

@@ -1,4 +1,5 @@
 # Parkingo
+[personal_link](resources.md)
 
 ## Goals
 Develop a system for real time parking lots detection.
@@ -25,5 +26,3 @@ Living in a big city, it's a common problem to find available parking spaces for
 1. Marc Tschentscher, Marcel Neuhausen. "Video-based parking space detection". Institute for Neural Computation, Ruhr-Universität Bochum, 2012
 2. Nicholas True. "Vacant Parking Space Detection in Static Images". University of California, San Diego
 3. Debaditya Acharya, Weilin Yan, Kourosh Khoshelham. "Real-time image-based parking occupancy detection using deep learning". Infrastructure Engineering, The University of Melbourne, 2018
-
-[personal_link](resources.md)
