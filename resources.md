@@ -1,7 +1,7 @@
 # Resources
 
 ## TODO
-- Lab2
+- Lab2  
 [x] README  
 [x] Choose Related Works  
 [ ] Summarize Related Works + usefull tools  
