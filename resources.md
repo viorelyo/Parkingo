@@ -7,7 +7,7 @@
 - [x] Choose Related Works  
 - [x] Summarize Related Works
 - [x] Useful tools
-- [ ] Documentation  
+- [x] Documentation  
 - [ ] App flow  
 
 ## Useful links
