@@ -7,7 +7,6 @@
 %\usepackage[latin1]{inputenc}  
 \usepackage[utf8]{inputenc}  
 % UTF-8 encoding is recommended by ShareLaTex
-
      
 \sloppy
 
@@ -15,43 +14,12 @@
 
 \author{Gurdis Viorel, Turcan Olga}
 
-\address{Universitatea Babes-Bolyai, Cluj-Napoca\\}
 
 
 \begin{document} 
 
 \maketitle
 
-\begin{abstract}
-  This meta-paper describes the style to be used in articles and short papers
-  for SBC conferences. For papers in English, you should add just an abstract
-  while for the papers in Portuguese, we also ask for an abstract in
-  Portuguese (``resumo''). In both cases, abstracts should not have more than
-  10 lines and must be in the first page of the paper.
-\end{abstract}
-
-
-\section{Introduction}
-
-All full papers and posters (short papers) submitted to some SBC conference,
-including any supporting documents, should be written in English or in
-Portuguese. The format paper should be A4 with single column, 3.5 cm for upper
-margin, 2.5 cm for bottom margin and 3.0 cm for lateral margins, without
-headers or footers. The main font must be Times, 12 point nominal size, with 6
-points of space before each paragraph. Page numbers must be suppressed.
-
-Full papers must respect the page limits defined by the conference.
-Conferences that publish just abstracts ask for \textbf{one}-page texts.
-
-\section{Related work} \label{sec:firstpage}
-
-An alternate approach for vacant parking space detection is described in \cite{debaditya}, which uses features extracted by a pre-trained CNN to train an SVM classifier for the detection of parking occupancy in a CCTV image sequence.
-The CNN extracts features from the publicly available PKLot dataset which consists of more than 12000 images collected from 3 parking sites on different weather conditions. 
-Consequently, the extracted features from images of the PKLot dataset were used to train and test a binary SVM classifier.
-The evaluation of the classification accuracy is done by cross validation on the PKLot dataset and the transfer learning ability on the Barry Street dataset, which was created for the purpose of that research and includes a sequence of images captured by a camera overlooking a street with marked parking places.\\\\
-The binary classification using the deep features achieved consistently reliable results with an average accuracyof 99.7\% across different weather conditions for the PKLot dataset.
-As transfer learning was a more challenging task because the classifier was required to recognise unfamiliar images, the classification of Barry street images achieved the overall accuracy of 96.65\%.
-It is worth mentioning that the processing time for each image segment of the parking spaces is 0.067 seconds on a simple desktop computer which means it takes approximately 2 seconds to process all the parking spaces in an image and hence the solution is suitable for real-time applications without any dedicated hardware.
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
