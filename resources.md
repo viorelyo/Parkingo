@@ -3,8 +3,10 @@
 ## TODO
 - **Lab2**  
 - [x] README  
+- [x] Configure LateX
 - [x] Choose Related Works  
-- [ ] Summarize Related Works + usefull tools  
+- [x] Summarize Related Works
+- [x] Useful tools
 - [ ] Documentation  
 - [ ] App flow  
 
