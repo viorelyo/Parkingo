@@ -13,7 +13,7 @@
 
 \author{Turcan Olga, Gurdis Viorel}
 
-\address{Babes-Bolyai University, Cluj-Napoca\\}
+\address{Babes-Bolyai University, Cluj-Napoca}
 
 
 \begin{document} 
@@ -21,27 +21,34 @@
 \maketitle
 
 \begin{abstract}
-  This meta-paper describes the style to be used in articles and short papers
-  for SBC conferences. For papers in English, you should add just an abstract
-  while for the papers in Portuguese, we also ask for an abstract in
-  Portuguese (``resumo''). In both cases, abstracts should not have more than
-  10 lines and must be in the first page of the paper.
+  Living in a big city, it's a common problem to find available parking 
+  spaces for your car. Having a real time parking space 
+  detection system based on images provided by CCTVs could considerably 
+  improve the parking experience at a relatively low cost.
 \end{abstract}
 
 
 \section{Introduction}
 
-All full papers and posters (short papers) submitted to some SBC conference,
-including any supporting documents, should be written in English or in
-Portuguese. The format paper should be A4 with single column, 3.5 cm for upper
-margin, 2.5 cm for bottom margin and 3.0 cm for lateral margins, without
-headers or footers. The main font must be Times, 12 point nominal size, with 6
-points of space before each paragraph. Page numbers must be suppressed.
+Statistically the average time spent searching for a parking spot represents \textbf{7.8 minutes}.
+That is a waste of time and can also cause traffic congestion. There are several types of 
+parking spaces monitoring systems, including counter-based and sensor-based, which try to solve the mentioned problem.
+Counter-based systems work by counting cars at the parking lot entrance, but their disadvantage is that they don't provide 
+concrete informations about available spots, leaving the task of finding the place to the driver.
+A more precise solution could be sensor-based systems which provide availability information about each 
+spot specifically. However, this solution implies higher costs (c.a \textbf{\$40} per unit). 
+An alternative approach would be using video provided by already installed surveillance cameras for real-time 
+detection by implementing a computer vision system.
+This method relies on the detection of vehicles in delimited space areas and classification of a spot as 
+available or occupied. The processed information will be delivered by a server in form of a web page and updated 
+in real-time, which would make the solution accessible for everyone. That would definetely save time of the driver 
+and considerably reduce traffic problems.
+Challenges that we should expect will be related to the scalability of the application. We should, for example, take into 
+consideration that the application should work in different weather conditions. We also focus on the accessibility 
+of the processed information in real-time, for which we will try to compare different AI algorithms and will choose 
+the one with the best balance between accurate results and small processing time.
 
-Full papers must respect the page limits defined by the conference.
-Conferences that publish just abstracts ask for \textbf{one}-page texts.
-
-\section{Related Work} \label{sec:firstpage}
+\section{Related Work} 
 
 One approach to video-based real-time parking space detection application 
 was described in the academic paper of \cite{tschentscher}. To minimize 
@@ -56,14 +63,44 @@ Three classifiers were trained and compared to each other based on features
 mentioned above: k-Nearest Neighbor, Linear Discriminant Analysis, Support 
 Vector Machine. The final solution relies on HSV color histogram and 
 Difference-of-Gaussian features and a SVM classifier, which reached an 
-accuracy of 99.8 \%.\\\\
-An alternate approach for vacant parking space detection is described in \cite{debaditya}, which uses features extracted by a pre-trained CNN to train an SVM classifier for the detection of parking occupancy in a CCTV image sequence.
-The CNN extracts features from the publicly available PKLot dataset which consists of more than 12000 images collected from 3 parking sites on different weather conditions. 
-Consequently, the extracted features from images of the PKLot dataset were used to train and test a binary SVM classifier.
-The evaluation of the classification accuracy is done by cross validation on the PKLot dataset and the transfer learning ability on the Barry Street dataset, which was created for the purpose of that research and includes a sequence of images captured by a camera overlooking a street with marked parking places.\\\\
-The binary classification using the deep features achieved consistently reliable results with an average accuracyof 99.7\% across different weather conditions for the PKLot dataset.
-As transfer learning was a more challenging task because the classifier was required to recognise unfamiliar images, the classification of Barry street images achieved the overall accuracy of 96.65\%.
-It is worth mentioning that the processing time for each image segment of the parking spaces is 0.067 seconds on a simple desktop computer which means it takes approximately 2 seconds to process all the parking spaces in an image and hence the solution is suitable for real-time applications without any dedicated hardware.
+accuracy of 99.8 \%.
+\\
+\\
+An alternate approach for vacant parking space detection is described in 
+\cite{debaditya}, which uses features extracted by a pre-trained CNN to 
+train an SVM classifier for the detection of parking occupancy in a 
+CCTV image sequence.
+The CNN extracts features from the publicly available PKLot dataset which 
+consists of more than 12000 images collected from 3 parking sites on 
+different weather conditions. 
+Consequently, the extracted features from images of the PKLot dataset 
+were used to train and test a binary SVM classifier.
+The evaluation of the classification accuracy is done by cross validation 
+on the PKLot dataset and the transfer learning ability on the Barry 
+Street dataset, which was created for the purpose of that research and 
+includes a sequence of images captured by a camera overlooking a street 
+with marked parking places.
+\\
+\\
+The binary classification using the deep features achieved consistently 
+reliable results with an average accuracyof 99.7\% across different weather 
+conditions for the PKLot dataset.
+As transfer learning was a more challenging task because the classifier 
+was required to recognise unfamiliar images, the classification of Barry 
+street images achieved the overall accuracy of 96.65\%.
+It is worth mentioning that the processing time for each image segment 
+of the parking spaces is 0.067 seconds on a simple desktop computer 
+which means it takes approximately 2 seconds to process all the parking 
+spaces in an image and hence the solution is suitable for real-time 
+applications without any dedicated hardware.
+
+\subsection{Useful Tools}
+The following tools were used for implementing above mentioned approaches.
+\begin{itemize}
+  \item Tensorflow
+  \item Keras
+  \item scikit-learn
+\end{itemize}
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
