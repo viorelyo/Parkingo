@@ -91,6 +91,28 @@ representing a parking space is 0.067 seconds on a simple desktop computer
 which means it takes approximately 2 seconds to process all the parking 
 spaces in an image and hence the solution is suitable for real-time 
 applications without any dedicated hardware.
+\\
+\\
+A more rudimentary approach for parking spots detection was used in \cite{roman},
+but they provided valuable information on the different approaches used
+to determine whether a parking spot is free or not. Also the FMPH dataset
+was introduced, consisting of 1,093 pictures depicting 25,139 parking
+spots during a 30-day timespan, taken in various weather conditions.
+For detecting the parking spots in an image, they provided an API that
+allowed an administrator to manually draw masks of each parking spot.
+Assuming that the camera rotation doesn't change, they mapped the masks
+for each subsequent image, allowing them to generate an 80x80 pixel
+image for each parking spot in an image, allowing them to normalize
+the inputs.
+\\
+\\
+The most notably performer was an MLP(15,15) classifier, which got an accuracity
+of 88.2\% on the mentioned FMPH dataset. Among the other tested approaches
+were kNN algorithms with k=1 and k=3, getting an accuracity of 82.2\% and
+82.3\% respectively. Another approach discussed in the paper is using
+Logistic Regression to classify whether a parking spot is free or not,
+but it proved to be the most underperforming algorithm used, scoring
+only 74,7\% accuracity.
 
 \subsection{Useful Tools}
 The following tools were used for implementing above mentioned approaches.
