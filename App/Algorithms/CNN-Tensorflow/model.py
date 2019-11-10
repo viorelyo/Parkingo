@@ -67,7 +67,7 @@ def train():
 	data_x, data_y = load_images(train_dataset)
 	
 	model = tf.keras.models.Sequential([
-		tf.keras.layers.Convolution2D(32, 3, 3, input_shape=(width, height, 3), activation=tf.nn.relu),
+		tf.keras.layers.Convolution2D(32, 5, 5, input_shape=(width, height, 3), activation=tf.nn.relu),
 		tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
 		tf.keras.layers.Flatten(),
 		tf.keras.layers.Dense(512, activation=tf.nn.relu),

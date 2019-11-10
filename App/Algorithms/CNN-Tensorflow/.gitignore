@@ -1,6 +1,7 @@
 __pycache__/
 .idea
 .dist
-dataset/
 test_dataset/S/
+dataset/busy/
+dataset/free/
 *.h5
