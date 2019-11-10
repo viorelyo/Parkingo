@@ -1,16 +1,15 @@
 \documentclass[12pt]{article}
 
 \usepackage{sbc-template}
-
 \usepackage{graphicx,url}
-
+\usepackage{hyperref}
 \usepackage[utf8]{inputenc}  
      
 \sloppy
 
 \title{Video-based parking spot detection using machine learning}
 
-\author{Olga Turcan, Viorel Gurdis}
+\author{Olga Turcan, Viorel Gurdis, Raul-Robert Zavaczki}
 
 \address{Babes-Bolyai University, Cluj-Napoca}
 
@@ -62,8 +61,7 @@ mentioned above: k-Nearest Neighbor, Linear Discriminant Analysis, Support
 Vector Machine. The final solution relies on HSV color histogram and 
 Difference-of-Gaussian features and a SVM classifier, which reached an 
 accuracy of 99.8\%.
-\\
-\\
+\par
 An alternate approach for vacant parking space detection is described in 
 \cite{debaditya}, which uses features extracted by a pre-trained CNN to 
 train an SVM classifier for the detection of parking occupancy in a 
@@ -78,8 +76,7 @@ on the PKLot dataset and the transfer learning ability on the Barry
 Street dataset, which was created for the purpose of that research and 
 includes a sequence of images captured by a camera overlooking a street 
 with marked parking places.
-\\
-\\
+\par
 The binary classification using the deep features achieved consistently 
 reliable results with an average accuracy of 99.7\% across different weather 
 conditions for the PKLot dataset.
@@ -91,8 +88,7 @@ representing a parking space is 0.067 seconds on a simple desktop computer
 which means it takes approximately 2 seconds to process all the parking 
 spaces in an image and hence the solution is suitable for real-time 
 applications without any dedicated hardware.
-\\
-\\
+\par
 A more rudimentary approach for parking spots detection was used in \cite{roman},
 but they provided valuable information on the different approaches used
 to determine whether a parking spot is free or not. Also the FMPH dataset
@@ -104,8 +100,7 @@ Assuming that the camera rotation doesn't change, they mapped the masks
 for each subsequent image, allowing them to generate an 80x80 pixel
 image for each parking spot in an image, allowing them to normalize
 the inputs.
-\\
-\\
+\par
 The most notably performer was an MLP(15,15) classifier, which got an accuracity
 of 88.2\% on the mentioned FMPH dataset. Among the other tested approaches
 were kNN algorithms with k=1 and k=3, getting an accuracity of 82.2\% and
@@ -115,12 +110,33 @@ but it proved to be the most underperforming algorithm used, scoring
 only 74,7\% accuracity.
 
 \subsection{Useful Tools}
+
 The following tools were used for implementing above mentioned approaches.
 \begin{itemize}
   \item Tensorflow
   \item Keras
   \item scikit-learn
 \end{itemize}
+
+\subsection{Methodology}
+Our research focuses on detecting the occupancy of parking lots from the images obtained by CCTVs.
+The algorithm we've implemented consists of a Convolutional Neural Network which was trained on the opensource 
+\cite{cnrpark} dataset which consists of 150x150 pixels patches grouped into 2 categories: busy and free.
+Our Keras model with Tensorflow backend has the following architecture: One convolutional layer having 3x3 image kernels,
+followed by a max-pooling layer with 2x2 pool size, a flatten layer, which reshapes the tensor for the upcoming dense layer 
+with ReLU as activation. To complete our CNN, we need to give it the ability to actually make predictions. 
+We’ll do that by using the standard final layer for a multiclass classification problem: 
+the Softmax layer, a fully-connected (dense) layer that uses the Softmax function as its activation.
+Before begining the training, we added some configurations during the compilation step:
+As \textbf{optimizer}, we decided for the Adam gradient-based optimizer and for the \textbf{loss function} 
+we used the sparse-categorical cross-entropy loss.
+
+\subsection{Experimental Design}
+In order to detect available lots in a parking, our application "ParkinGo" uses a Machine Learning approach.
+Each lot is initially marked manually and stored into a database. By uploading the image of the entire parking area,
+our algorithm is able to iterate through all labeled regions of interest (ROIs), scale each ROI from original image to the coresponding resolution 
+and then apply Convolutional Neural Network, that is able to predict with 99\% accuracy, which lot is occupied and which one is empty.
+The average percentage of correctly classified parking spots from an input image is 96\%.
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}

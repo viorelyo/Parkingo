@@ -1,4 +1,5 @@
 __pycache__/
 .idea
-dataset/
+dataset/busy/
+dataset/free/
 *.h5
