@@ -10,7 +10,7 @@
 
 \title{Video-based parking spot detection using machine learning}
 
-\author{Olga Turcan, Viorel Gurdis}
+\author{Olga Turcan, Viorel Gurdis, Raul-Robert Zavaczki}
 
 \address{Babes-Bolyai University, Cluj-Napoca}
 
@@ -46,7 +46,7 @@ consideration that the application should work in different weather conditions. 
 of the processed information in real-time, for which we will try to compare different AI algorithms and will choose 
 the one with the best balance between accurate results and small processing time.
 
-\section{Related Work} 
+\section{Related Work}
 
 One approach to video-based real-time parking space detection application 
 was described in the academic paper of \cite{tschentscher}. To minimize 
@@ -62,8 +62,8 @@ mentioned above: k-Nearest Neighbor, Linear Discriminant Analysis, Support
 Vector Machine. The final solution relies on HSV color histogram and 
 Difference-of-Gaussian features and a SVM classifier, which reached an 
 accuracy of 99.8\%.
-\\
-\\
+
+\par
 An alternate approach for vacant parking space detection is described in 
 \cite{debaditya}, which uses features extracted by a pre-trained CNN to 
 train an SVM classifier for the detection of parking occupancy in a 
@@ -78,8 +78,8 @@ on the PKLot dataset and the transfer learning ability on the Barry
 Street dataset, which was created for the purpose of that research and 
 includes a sequence of images captured by a camera overlooking a street 
 with marked parking places.
-\\
-\\
+
+\par
 The binary classification using the deep features achieved consistently 
 reliable results with an average accuracy of 99.7\% across different weather 
 conditions for the PKLot dataset.
@@ -91,8 +91,8 @@ representing a parking space is 0.067 seconds on a simple desktop computer
 which means it takes approximately 2 seconds to process all the parking 
 spaces in an image and hence the solution is suitable for real-time 
 applications without any dedicated hardware.
-\\
-\\
+
+\par
 A more rudimentary approach for parking spots detection was used in \cite{roman},
 but they provided valuable information on the different approaches used
 to determine whether a parking spot is free or not. Also the FMPH dataset
@@ -104,8 +104,8 @@ Assuming that the camera rotation doesn't change, they mapped the masks
 for each subsequent image, allowing them to generate an 80x80 pixel
 image for each parking spot in an image, allowing them to normalize
 the inputs.
-\\
-\\
+
+\par
 The most notably performer was an MLP(15,15) classifier, which got an accuracity
 of 88.2\% on the mentioned FMPH dataset. Among the other tested approaches
 were kNN algorithms with k=1 and k=3, getting an accuracity of 82.2\% and
@@ -122,7 +122,7 @@ The following tools were used for implementing above mentioned approaches.
   \item scikit-learn
 \end{itemize}
 
-\bibliographystyle{sbc}
-\bibliography{sbc-template}
+\bibliographystyle{bibstyle}
+\bibliography{bibliography}
 
 \end{document}

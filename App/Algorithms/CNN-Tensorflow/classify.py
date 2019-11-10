@@ -39,7 +39,10 @@ def update():
     parkings = db.all()
 
     for parking in parkings:
-        camera_image = get_img(parking['url'])
+        # camera_image = get_img(parking['url'])
+        camera_image = get_img('test_dataset/S/' + parking['url'])
+
+        print('processing image ' + parking['url'])
 
 		# Process each parking spot
         parking_spots = parking['spots']

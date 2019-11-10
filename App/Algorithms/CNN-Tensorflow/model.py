@@ -14,8 +14,6 @@ def load_images(dataset_location):
 
 	images_free = os.listdir(samples_free)
 	images_occupied = os.listdir(samples_occupied)
-	# data_x = np.ndarray(shape=(len(images_free + images_occupied), width, height, channels), dtype=np.float32)
-	# data_y = np.ndarray(shape=(len(images_free + images_occupied)), dtype=np.float32)
 	data_x = np.ndarray(shape=(dataset_size, width, height, channels), dtype=np.float32)
 	data_y = np.ndarray(shape=(dataset_size), dtype=np.float32)
 

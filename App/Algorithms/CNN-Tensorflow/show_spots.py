@@ -31,10 +31,5 @@ for spot in spots:
         # create green box
 		cv2.rectangle(img, (spot['crop'][0], spot['crop'][1]), (spot['crop'][0] + spot['crop'][2], spot['crop'][1] + spot['crop'][3]), (0, 255, 0), 2)
 
-# while(True):
-#     cv2.imshow('image', img)
-#     k = cv2.waitKey(20) & 0xFF
-#     if k == 27:
-#         break
 cv2.imshow('image', img)
 cv2.waitKey(0)
