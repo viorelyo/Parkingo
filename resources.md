@@ -30,3 +30,8 @@
 ## References
 - https://arxiv.org/pdf/1902.07401.pdf
 - https://github.com/visualbuffer/parkingslot
+
+
+## Generate CNN Architecture
+- https://github.com/HarisIqbal88/PlotNeuralNet
+- Ubuntu generator file `final.py`

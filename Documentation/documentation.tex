@@ -125,7 +125,7 @@ The following tools were used for implementing above mentioned approaches.
 Our research focuses on detecting the occupancy of parking lots from the images obtained by CCTVs.
 The algorithm we've implemented consists of a Convolutional Neural Network which was trained on the opensource 
 \cite{cnrpark} dataset which consists of 150x150 pixels patches grouped into 2 categories: busy and free.
-Our Keras model with Tensorflow backend has the following architecture: One convolutional layer having 3x3 image kernels,
+Our Keras model with Tensorflow backend has the following architecture (fig. \ref{fig:architectureimg}): One convolutional layer having 3x3 image kernels,
 followed by a max-pooling layer with 2x2 pool size, a flatten layer, which reshapes the tensor for the upcoming dense layer 
 with ReLU as activation. To complete our CNN, we need to give it the ability to actually make predictions. 
 We’ll do that by using the standard final layer for a multiclass classification problem: 
@@ -135,13 +135,19 @@ As \textbf{optimizer}, we decided for the Adam gradient-based optimizer and for 
 we used the sparse-categorical cross-entropy loss.
 
 \begin{SCfigure}[0.5][h]
+\caption{Architecture of the used Keras model}
+\includegraphics[width=0.8\textwidth]{Architecture}
+\label{fig:architectureimg}
+\end{SCfigure}
+
+\begin{SCfigure}[0.5][h]
 \caption{Example of 150x150 px patches, free and occupied}
 \includegraphics[width=0.2\textwidth]{20150703_0810_10}
 \includegraphics[width=0.2\textwidth]{20150703_0810_45}
 \label{fig:resultimg}
 \end{SCfigure}
 
-
+\clearpage
 \subsection{Experimental Design}
 In order to detect available lots in a parking, our application "ParkinGo" uses a Machine Learning approach.
 Each lot is initially marked manually and stored into a database. By uploading the image of the entire parking area,
@@ -155,6 +161,7 @@ The average percentage of correctly classified parking spots from an input image
 \label{fig:resultimg}
 \end{SCfigure}
 
+\clearpage
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
 
