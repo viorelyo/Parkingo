@@ -134,6 +134,12 @@ Before begining the training, we added some configurations during the compilatio
 As \textbf{optimizer}, we decided for the Adam gradient-based optimizer and for the \textbf{loss function} 
 we used the sparse-categorical cross-entropy loss.
 
+A different approach is using an already trained CNN and extending it to meet our classifying needs.
+For this approach, we chose VGG-16 CNN-Architecture with 'imagenet' weights, and extended it by adding (Flatten, Dense(256), Dropout) layers
+for feature-recognition, and finally a Dense(1) layer to classify into our categories: busy or free.
+With this approach, we obtained a 98.9\% accuarcy, with only 4 epochs of training.
+ 
+
 \begin{SCfigure}[0.5][h]
 \caption{Architecture of the used Keras model}
 \includegraphics[width=0.8\textwidth]{Architecture}
