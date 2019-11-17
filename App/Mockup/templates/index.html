@@ -1,0 +1,80 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+    <title>ParkinGo</title>
+    <link rel="stylesheet" type="text/css" href="./static/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    
+    <script type="text/javascript" src="./static/js/html2canvas.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+</head>
+<body> 
+<div align="center">
+    <div>
+        <h1>ParkinGo</h1>
+    </div>
+    <div>
+        <!-- <video width="800" autoplay muted>
+            <source src="./static/media/sample.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video> -->
+        <!-- <iframe class="ytplayer" id="ytplayer" width="560" height="315" src="https://www.youtube.com/embed/dl7y10Ay8-M?controls=0&autoplay=1&cc_load_policy=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe> -->
+        <div id="player"></div>
+
+        <script>
+            var tag = document.createElement('script');
+
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            var player;
+            function onYouTubeIframeAPIReady() {
+                player = new YT.Player('player', {
+                height: '400',
+                width: '700',
+                videoId: 'dl7y10Ay8-M',
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                },
+                playerVars: {
+                    'controls': 0,
+                    'rel': 0,
+                    'fs': 0,
+                    'disablekb': 1,
+                    'modestbranding': true,
+                }
+                });
+            }
+
+            function onPlayerReady(event) {
+                event.target.playVideo();
+            }
+
+            function onPlayerStateChange(event) {
+                if (event.data == YT.PlayerState.PAUSED) {
+                    player.playVideo();
+                }
+            }
+        </script>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+        //var testdiv = document.getElementById("testdiv");
+            html2canvas($("#player"), {
+                onrendered: function(canvas) {
+                    // canvas is the final rendered <canvas> element
+                    var myImage = canvas.toDataURL("image/png");
+                    window.open(myImage);
+                }
+            });
+        });
+    </script>
+
+    <div id="testdiv">
+    </div>
+</div>
+</body> 
+</html>
