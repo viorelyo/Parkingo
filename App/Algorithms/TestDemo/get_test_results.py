@@ -1,9 +1,10 @@
-from classify import update 
 from tinydb import TinyDB
 from config import *
 from save_predicted import draw_boxes_for_image
 
-db = TinyDB('db.json')
+global db_path
+db = TinyDB(db_path)
+
 
 def read_test_labels():
     print("reading labels")
@@ -20,12 +21,10 @@ def read_test_labels():
 
 
 def test_on_full_images():
-    """
-
-    """
     test_labels = read_test_labels()
     parkings = db.all()
     accuracies = {}
+
     for parking in parkings:
         weather = parking['weather']
         img_url = parking['url']
@@ -33,9 +32,7 @@ def test_on_full_images():
 
         img_guessed = 0
         for spot in all_spots:
-            # 2015-11-12_0713.jpg
             label_key = weather + '_' + img_url[:13] + '.' + img_url[13:15] + '_C08_' +  spot['slot_id']
-            # S_2016-01-15_11.31_C08_284.jpg
 
             expected_label = test_labels[label_key]
             actual_label = spot['occupied']
@@ -44,8 +41,7 @@ def test_on_full_images():
         
         accuracies[img_url] = img_guessed/len(all_spots)
         draw_boxes_for_image(img_url)
-    
-    print(accuracies)
+
     average_accuracy = sum(list(accuracies.values())) / len(list(accuracies.values()))
     print("The average accuracy is " + str(round(average_accuracy, 4)))
 

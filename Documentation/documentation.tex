@@ -123,8 +123,8 @@ The following tools were used for implementing above mentioned approaches.
 
 \section{Methodology}
 Our research focuses on detecting the occupancy of parking lots from the images obtained by CCTVs.
-The algorithm we've implemented consists of a Convolutional Neural Network which was trained on the opensource 
-\cite{cnrpark} dataset which consists of 150x150 pixels patches grouped into 2 categories: busy and free.
+The algorithm we've implemented consists of a Convolutional Neural Network which was trained on 8000 images from the opensource 
+\cite{cnrpark} dataset which consists of 150x150 pixels patches (fig. \ref{fig:patchesimg}) grouped into 2 categories: busy and free.
 Our Keras model with Tensorflow backend has the following architecture (fig. \ref{fig:architectureimg}): One convolutional layer having 3x3 image kernels,
 followed by a max-pooling layer with 2x2 pool size, a flatten layer, which reshapes the tensor for the upcoming dense layer 
 with ReLU as activation. To complete our CNN, we need to give it the ability to actually make predictions. 
@@ -132,13 +132,7 @@ We’ll do that by using the standard final layer for a multiclass classificatio
 the Softmax layer, a fully-connected (dense) layer that uses the Softmax function as its activation.
 Before begining the training, we added some configurations during the compilation step:
 As \textbf{optimizer}, we decided for the Adam gradient-based optimizer and for the \textbf{loss function} 
-we used the sparse-categorical cross-entropy loss.
-
-A different approach is using an already trained CNN and extending it to meet our classifying needs.
-For this approach, we chose VGG-16 CNN-Architecture with 'imagenet' weights, and extended it by adding (Flatten, Dense(256), Dropout) layers
-for feature-recognition, and finally a Dense(1) layer to classify into our categories: busy or free.
-With this approach, we obtained a 98.9\% accuarcy, with only 4 epochs of training.
- 
+we used the sparse-categorical cross-entropy loss. The model was able to classify parking slots into occupied and free with 99\% accruacy.
 
 \begin{SCfigure}[0.5][h]
 \caption{Architecture of the used Keras model}
@@ -146,20 +140,28 @@ With this approach, we obtained a 98.9\% accuarcy, with only 4 epochs of trainin
 \label{fig:architectureimg}
 \end{SCfigure}
 
+\par
+A different approach is using an already trained CNN and extending it to meet our classifying needs.
+For this approach, we chose VGG-16 CNN-Architecture with 'imagenet' weights, and extended it by adding (Flatten, Dense(256), Dropout) layers
+for feature-recognition, and finally a Dense(1) layer to classify into our categories: busy or free.
+With this approach, we obtained a 98.9\% accuarcy, with only 4 epochs of training.
+
 \begin{SCfigure}[0.5][h]
 \caption{Example of 150x150 px patches, free and occupied}
 \includegraphics[width=0.2\textwidth]{20150703_0810_10}
 \includegraphics[width=0.2\textwidth]{20150703_0810_45}
-\label{fig:resultimg}
+\label{fig:patchesimg}
 \end{SCfigure}
 
 \clearpage
 \subsection{Experimental Design}
 In order to detect available lots in a parking, our application "ParkinGo" uses a Machine Learning approach.
 Each lot is initially marked manually and stored into a database. By uploading the image of the entire parking area,
-our algorithm is able to iterate through all labeled regions of interest (ROIs), scale each ROI from original image to the coresponding resolution 
-and then apply Convolutional Neural Network, that is able to predict with 99\% accuracy, which lot is occupied and which one is empty.
-The average percentage of correctly classified parking spots from an input image is 96\%, as seen in the figure \ref{fig:resultimg}.
+our algorithm is able to iterate through all labeled regions of interest (ROIs) and scale each ROI from original image to the coresponding resolution 
+and then apply the Convolutional Neural Network model to predict which lot is occupied and which one is empty.
+While using the first approach to test the classification on 20 images, the average percentage of correctly classified parking spots from an input image was 96\%, as seen in the figure \ref{fig:resultimg}.
+
+
 
 \begin{SCfigure}[0.5][h]
 \caption{Obtained image after labeling the ROIs}

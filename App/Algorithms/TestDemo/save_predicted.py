@@ -1,10 +1,7 @@
 from tinydb import TinyDB, Query
 from config import * 
 
-import numpy as np
 import cv2
-import sys
-import os
 
 
 def draw_boxes_for_image(img_path):
@@ -12,8 +9,8 @@ def draw_boxes_for_image(img_path):
     full_path = test_dataset + weather_sunny + img_path
     img = image = cv2.imread(full_path)
     
-    # coord = []
-    db = TinyDB('db.json')
+    global db_path
+    db = TinyDB(db_path)
     q = Query()
     spots = db.search(q.url == img_path)[0]['spots']
     for spot in spots:
