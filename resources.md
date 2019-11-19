@@ -35,6 +35,8 @@
 - [ ] Generate a dynamic table (or smth. else to interact with the user) to show free/occupied spots (onClick on a free spot - the layer with marked spot should hover LIVE video)  `[Mr.X]`
 - [ ] UI/UX `[TEAM]`
 - [ ] QA `[Benta]`
+- [ ] WIKI/Ontology/Mindmap `[TEAM]`
+- [ ] App flow pipeline `[Mr.X]`
 
 ## Useful links
 - https://github.com/gstark0/Parq

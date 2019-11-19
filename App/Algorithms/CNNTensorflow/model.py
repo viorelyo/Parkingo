@@ -6,6 +6,9 @@ from config import *
 
 
 def load_images(dataset_location):
+	"""
+	Prepare dataset for training
+	"""
 	global label_free, label_occupied
 	samples_free = dataset_location + label_free
 	samples_occupied = dataset_location + label_occupied
