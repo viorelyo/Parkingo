@@ -1,6 +1,2 @@
-Algorithms/venv/
-venv/
-Algorithms/Test/test_dataset/S/
-../.idea
-../.dist
+.idea
 */__pycache__
