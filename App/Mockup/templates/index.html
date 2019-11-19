@@ -7,6 +7,7 @@
     
     <script type="text/javascript" src="./static/js/html2canvas.js"></script>
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="./static/js/main.js"></script>
 </head>
 <body> 
 <div align="center">
@@ -18,7 +19,7 @@
             <source src="./static/media/sample.mp4" type="video/mp4">
             Your browser does not support HTML5 video.
         </video> -->
-        <!-- <iframe class="ytplayer" id="ytplayer" width="560" height="315" src="https://www.youtube.com/embed/dl7y10Ay8-M?controls=0&autoplay=1&cc_load_policy=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe> -->
+        
         <div id="player"></div>
 
         <script>
@@ -33,7 +34,7 @@
                 player = new YT.Player('player', {
                 height: '400',
                 width: '700',
-                videoId: 'dl7y10Ay8-M',
+                videoId: 'W4bbp3PDKAc',
                 events: {
                     'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
@@ -49,6 +50,7 @@
             }
 
             function onPlayerReady(event) {
+                loadTable();
                 event.target.playVideo();
             }
 
@@ -60,21 +62,29 @@
         </script>
     </div>
 
-    <script>
+    <!-- <script>
         $(document).ready(function() {
-        //var testdiv = document.getElementById("testdiv");
-            html2canvas($("#player"), {
+            html2canvas($("#testdiv"), {
                 onrendered: function(canvas) {
                     // canvas is the final rendered <canvas> element
-                    var myImage = canvas.toDataURL("image/png");
+                    var myImage = canvas.toDataURL("./png.jpeg");
                     window.open(myImage);
                 }
             });
         });
-    </script>
+    </script> -->
 
-    <div id="testdiv">
-    </div>
+    <!-- <div id="testdiv">
+        <button onclick=""
+    </div> -->
+
+    <form>
+        <div>
+            <label>Select file to upload</label>
+            <input type="file" >
+            <button onchange="uploadFrame()">Submit</button>
+        </div>
+    </form>
 </div>
 </body> 
 </html>
