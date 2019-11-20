@@ -32,7 +32,7 @@
 - [ ] Calculate time(TIME_X) spent by each algorithm to classify an entire frame `[Mr.X]`
 - [ ] Capture each frame after TIME_X seconds from playing LIVE video `[RAUL]`
 - [ ] Create a hover layer above LIVE video to mark the available clicked spot `[RAUL]`
-- [ ] Generate a dynamic table (or smth. else to interact with the user) to show free/occupied spots (onClick on a free spot - the layer with marked spot should hover LIVE video)  `[Mr.X]`
+- [ ] Generate a dynamic table (or smth. else to interact with the user) to show free/occupied spots (onClick on a free spot - the layer with marked spot should hover LIVE video)  `[VIOREL]`
 - [ ] UI/UX `[TEAM]`
 - [ ] QA `[Benta]`
 - [ ] WIKI/Ontology/Mindmap `[TEAM]`
