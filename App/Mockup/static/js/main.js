@@ -16,16 +16,15 @@ function loadTable() {
 }
 
 
-// function uploadFrame() {
-//     console.log("pls");
-//     var input = document.querySelector('input[type="file"]');
+function uploadFrame() {
+    var input = document.querySelector('input[type="file"]');
 
-//     const data = new FormData();
-//     data.append('file', input.files[0]);
-//     data.append('filename', 'example');
+    const data = new FormData();
+    data.append('file', input.files[0]);
+    data.append('filename', 'example');
  
-//     fetch('/upload', {
-//         method: 'POST',
-//         body: data
-//     });
-// }
+    fetch('/upload', {
+        method: 'POST',
+        body: data
+    });
+}

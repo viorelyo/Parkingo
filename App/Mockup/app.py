@@ -26,20 +26,17 @@ def get_spots():
     return jsonify(spots)
 
 
-# @app.route('/upload', methods=['POST'])
-# def upload_frame():
-#     if request.files['file']:
-#         frame = request.files['file']
-#         filename = secure_filename(frame.filename)
-#         destination = os.path.join('.', filename)
-#         print(destination)
-#         frame.save(destination)
-#         return "done"
+@app.route('/upload', methods=['POST'])
+def upload_frame():
+    if request.files['file']:
+        frame = request.files['file']
+        filename = secure_filename(frame.filename)
+        destination = os.path.join('./frames', filename)
+        print(destination)
+        frame.save(destination)
+        return "success"
 
-@app.route('/classify', methods=['GET'])
-def classify():
-    time.sleep(10)
-    return "hello"
+        
 
 
 if __name__ == '__main__':

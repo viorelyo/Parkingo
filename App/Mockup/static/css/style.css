@@ -9,7 +9,7 @@ h1 {
 }
 
 
-/* Spinner Begin */
+/* Spinner Begin https://dev.to/wangonya/displaying-a-css-spinner-on-ajax-calls-with-fetch-api-4ndo */
 #spinner:not([hidden]) {
   position: fixed;
   top: 0;
