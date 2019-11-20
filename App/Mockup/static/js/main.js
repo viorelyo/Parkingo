@@ -1,4 +1,7 @@
 function loadTable() {
+    const spinner = document.getElementById("spinner");
+
+    spinner.removeAttribute('hidden');
     fetch('/spots', {
         method: 'GET',
         headers: {
@@ -7,6 +10,7 @@ function loadTable() {
     })
     .then(data => data.json())
     .then(data => {
+        spinner.setAttribute('hidden', '');
         console.log(data);
     })
 }

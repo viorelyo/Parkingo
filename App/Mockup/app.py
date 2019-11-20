@@ -8,6 +8,11 @@ import os
 app = Flask(__name__)
 
 
+def doIt():
+    while True:
+        print("hello")
+        time.sleep(5)
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -17,20 +22,26 @@ def index():
 def get_spots():
     repo = Repository()
     spots = repo.get_all()
-    # time.sleep(5)
+    time.sleep(5)
     return jsonify(spots)
 
 
-@app.route('/upload', methods=['POST'])
-def upload_frame():
-    if request.files['file']:
-        frame = request.files['file']
-        filename = secure_filename(frame.filename)
-        destination = os.path.join('.', filename)
-        print(destination)
-        frame.save(destination)
-        return "done"
+# @app.route('/upload', methods=['POST'])
+# def upload_frame():
+#     if request.files['file']:
+#         frame = request.files['file']
+#         filename = secure_filename(frame.filename)
+#         destination = os.path.join('.', filename)
+#         print(destination)
+#         frame.save(destination)
+#         return "done"
+
+@app.route('/classify', methods=['GET'])
+def classify():
+    time.sleep(10)
+    return "hello"
 
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
+    # app.run(host= '0.0.0.0')
