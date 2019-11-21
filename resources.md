@@ -25,7 +25,7 @@
 - [x] Code refactor `[OLGA]`
 - [x] Flask server `[VIOREL]`
 - [x] Auto video loading on webpage access `[VIOREL]`
-- [ ] Make the webpage asynchronous `[Mr.X]`
+- [x] Make the webpage asynchronous `[TEAM]` (just use fetch API)
 - [ ] Find live static CCTV from Parking Lot on YOUTUBE `[TEAM]`
 - [ ] Create labels for each parking spot bounding as CSV Format `[OLGA]`
 - [ ] Test if algorithm(s) classify spots from frames of that video `[OLGA]`
