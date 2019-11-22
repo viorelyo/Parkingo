@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>tst</title>
+    <style>
+        button {
+            background-color: #4CAF50; 
+            /* background-color: #bc3448;  */
+            border: 1px solid green;
+            color: white; /* White text */
+            padding: 2em 2em; 
+            cursor: pointer; /* Pointer/hand icon */
+            float: left; /* Float the buttons side by side */
+            width: 10%;
+        }
+        
+        .btn-group {
+            position: fixed;
+            right: 0;
+            left: 0;
+            margin-right: auto;
+            margin-left: auto;
+            /* give it dimensions */
+            /* min-height: 10em; */
+            /* min-width: 20em; */
+            width: 45%;
+            /* just for example presentation */
+            /* top: 5em; */
+            /* background-color: blue; */
+        }
+
+        /* Clear floats (clearfix hack) */
+        .btn-group:after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        
+        button:not(:last-child) {
+            border-right: none; /* Prevent double borders */
+        }
+        
+        /* Add a background color on hover */
+        button:hover {
+            background-color: #3e8e41;
+            /* background-color: #b04144; */
+        }
+
+        /* td{
+            border:1px solid #000;
+        } */
+
+    </style>
+</head>
+<body>
+    <script>
+        function doSmth()
+        {
+            console.log("davai");
+        }
+
+        function btnGroupCreate(n) {
+            var body = document.getElementsByTagName('body')[0];
+            var group = document.createElement("div");
+            group.className = "btn-group";
+        
+            for (var i = 1; i <= n; i++) {
+                var btn = document.createElement("button");
+                btn.innerHTML = "";
+                btn.type = "button";
+                btn.onclick = doSmth;
+                
+                group.appendChild(btn);
+            }
+            body.appendChild(group);
+        }
+
+        function tableCreate(n, m) {
+            var body = document.getElementsByTagName('body')[0];
+            var tbl = document.createElement('table');
+            tbl.style = "width: 100%;";
+            // tbl.setAttribute('border', '1');
+
+            var tbdy = document.createElement('tbody');
+            for (var i = 1; i <= n; i++) {
+                var tr = document.createElement('tr');
+                for (var j = 1; j <= m; j++) {
+                    var td = document.createElement('td');
+                    
+                    var btn = document.createElement("button");
+                    btn.innerHTML = "";
+                    btn.type = "button";
+                    btn.onclick = doSmth;
+
+                    td.appendChild(btn);
+                    tr.appendChild(td);
+                }
+                tbdy.appendChild(tr);
+            }
+            tbl.appendChild(tbdy);
+            body.appendChild(tbl)
+        }
+
+        // tableCreate(10, 8);
+        btnGroupCreate(30);
+    </script>
+</body>
+</html>

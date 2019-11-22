@@ -50,8 +50,8 @@
             }
 
             function onPlayerReady(event) {
-                loadTable();
                 event.target.playVideo();
+                loadTable();
             }
 
             function onPlayerStateChange(event) {
@@ -74,13 +74,14 @@
         });
     </script> -->
 
-    <!-- <form>
+    <form>
         <div>
             <label>Select file to upload</label>
             <input type="file" >
-            <button onchange="uploadFrame()">Submit</button>
+            <button type='button' onclick="uploadFrame()">Submit</button>
         </div>
-    </form> -->
+    </form>
+    <div hidden id="spinner"></div>
 </div>
 </body> 
 </html>
