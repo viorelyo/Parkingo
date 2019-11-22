@@ -3,15 +3,32 @@
 <head>
     <title>tst</title>
     <style>
-        .btn-group button {
-            background-color: #4CAF50; /* Green background */
-            border: 1px solid green; /* Green border */
+        button {
+            background-color: #4CAF50; 
+            /* background-color: #bc3448;  */
+            border: 1px solid green;
             color: white; /* White text */
-            padding: 10px 24px; /* Some padding */
+            padding: 2em 2em; 
             cursor: pointer; /* Pointer/hand icon */
             float: left; /* Float the buttons side by side */
+            width: 10%;
         }
         
+        .btn-group {
+            position: fixed;
+            right: 0;
+            left: 0;
+            margin-right: auto;
+            margin-left: auto;
+            /* give it dimensions */
+            /* min-height: 10em; */
+            /* min-width: 20em; */
+            width: 45%;
+            /* just for example presentation */
+            /* top: 5em; */
+            /* background-color: blue; */
+        }
+
         /* Clear floats (clearfix hack) */
         .btn-group:after {
             content: "";
@@ -19,14 +36,20 @@
             display: table;
         }
         
-        .btn-group button:not(:last-child) {
+        button:not(:last-child) {
             border-right: none; /* Prevent double borders */
         }
         
         /* Add a background color on hover */
-        .btn-group button:hover {
+        button:hover {
             background-color: #3e8e41;
+            /* background-color: #b04144; */
         }
+
+        /* td{
+            border:1px solid #000;
+        } */
+
     </style>
 </head>
 <body>
@@ -43,7 +66,7 @@
         
             for (var i = 1; i <= n; i++) {
                 var btn = document.createElement("button");
-                btn.innerHTML = "" + i;
+                btn.innerHTML = "";
                 btn.type = "button";
                 btn.onclick = doSmth;
                 
@@ -55,8 +78,8 @@
         function tableCreate(n, m) {
             var body = document.getElementsByTagName('body')[0];
             var tbl = document.createElement('table');
-            // tbl.style.width = '100%';
-            tbl.setAttribute('border', '1');
+            tbl.style = "width: 100%;";
+            // tbl.setAttribute('border', '1');
 
             var tbdy = document.createElement('tbody');
             for (var i = 1; i <= n; i++) {
@@ -65,7 +88,7 @@
                     var td = document.createElement('td');
                     
                     var btn = document.createElement("button");
-                    btn.innerHTML = "" + i + j;
+                    btn.innerHTML = "";
                     btn.type = "button";
                     btn.onclick = doSmth;
 
@@ -78,8 +101,8 @@
             body.appendChild(tbl)
         }
 
-        // tableCreate(2, 2);
-        btnGroupCreate(12);
+        // tableCreate(10, 8);
+        btnGroupCreate(30);
     </script>
 </body>
 </html>
