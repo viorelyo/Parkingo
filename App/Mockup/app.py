@@ -6,6 +6,7 @@ import os
 
 
 app = Flask(__name__)
+repo = Repository()
 
 
 def doIt():
@@ -20,7 +21,6 @@ def index():
 
 @app.route('/spots', methods=['GET'])
 def get_spots():
-    repo = Repository()
     spots = repo.get_all()
     time.sleep(5)
     return jsonify(spots)
