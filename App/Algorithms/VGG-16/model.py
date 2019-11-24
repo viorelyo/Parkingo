@@ -18,13 +18,12 @@ def get_session_growth():
 
 sess = get_session_growth()
 
-class VGG16Classifier:
-
-    def __init__(self, image_size):
+class Model:
+    def __init__(self, image_size=(150,150)):
         self._height = image_size[0]
         self._width = image_size[1]
 
-    def create_model(self):
+    def create_vgg_model(self):
         #  Load trained VGG16 weights
         vgg_model = VGG16(weights = 'imagenet', include_top = False, input_shape = (self._height, self._width, 3))
         #  Freeze the already trained layers
@@ -68,16 +67,22 @@ class VGG16Classifier:
         validation_data=validation_generator,
         validation_steps=number_validation_samples // batch_size)
 
-    def load_model(self, json_path, weights_path):
+    def load_model_with_weights(self, json_path, weights_path):
         with open(json_path, 'r') as json_file:
             json_file_content = json_file.read()
             self._model = model_from_json(json_file_content)
         self._model.load_weights(weights_path)
 
-    def save_model(self, json_filename, weights_filename):
+    def save_model_with_weights(self, json_filename, weights_filename):
         with open(json_filename, "w") as json_file:
             json_file.write(self._model.to_json())
         self._model.save_weights(weights_filename)
+
+    def load_model(self, path):
+        self._model = tf.keras.load_model(path)
+
+    def save_model(self, path):
+        tf.keras.save_model(self._model, path)
 
     def predict(self, image_path):
         if self._model is None:

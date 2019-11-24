@@ -8,6 +8,9 @@ import tensorflow as tf
 import numpy as np
 import time
 
+from models import get_vgg_model, get_cnn_model
+
+model = get_cnn_model()
 
 def crop_img(img, crop_data):
     """
@@ -26,16 +29,17 @@ def crop_img(img, crop_data):
     return cropped_img
 
 
-def update(model_path, db_path):
+def update(db_path):
     """
     Update data for all parking spots in the db
     """
+    global model
+    global test_dataset
     db = TinyDB(db_path)
     parkings = db.all()
 
     all_images_proc_time = 0
     for parking in parkings:
-        global test_dataset
         camera_image = Image.open(test_dataset + parking['url'])
 
         print('processing image ' + parking['url'])
@@ -45,15 +49,12 @@ def update(model_path, db_path):
         updated_parking_spots = []
 
         single_img_proc_time = 0
-        model = tf.keras.models.load_model(model_path)
         for spot in parking_spots:
 
             spot_image = crop_img(camera_image, spot['crop'])
             spot_image = img_to_array(spot_image, path=False)
             
-            start = time.time()
             prediction = model.predict(np.array([spot_image]))
-            end = time.time()
             if prediction[0][0] > prediction[0][1]:
                 spot['occupied'] = False
             else:
