@@ -26,17 +26,18 @@
 - [x] Flask server `[VIOREL]`
 - [x] Auto video loading on webpage access `[VIOREL]`
 - [x] Make the webpage asynchronous `[TEAM]` (just use fetch API)
-- [ ] Find live static CCTV from Parking Lot on YOUTUBE `[TEAM]`
-- [ ] Create labels for each parking spot bounding as CSV Format `[OLGA]`
-- [ ] Test if algorithm(s) classify spots from frames of that video `[OLGA]`
-- [ ] Calculate time(TIME_X) spent by each algorithm to classify an entire frame `[Mr.X]`
+- [x] Find live static CCTV from Parking Lot on YOUTUBE `[TEAM]`
+- [x] Create labels for each parking spot bounding as CSV Format `[OLGA]`
+- [x] Test if algorithm(s) classify spots from frames of that video `[OLGA]`
+- [x] Calculate time(TIME_X) spent by each algorithm to classify an entire frame `[OLGA]`
 - [ ] Capture each frame after TIME_X seconds from playing LIVE video `[RAUL]`
 - [ ] Create a hover layer above LIVE video to mark the available clicked spot `[RAUL]`
-- [ ] Generate a dynamic table (or smth. else to interact with the user) to show free/occupied spots (onClick on a free spot - the layer with marked spot should hover LIVE video)  `[VIOREL]`
+- [x] Generate a dynamic table (or smth. else to interact with the user) to show free/occupied spots 
+- [ ] Add functionality to interract with the user (onClick on a free spot - the layer with marked spot should hover LIVE video)  `[VIOREL]`
 - [ ] UI/UX `[TEAM]`
 - [ ] QA `[Benta]`
 - [ ] WIKI/Ontology/Mindmap `[TEAM]`
-- [ ] App flow pipeline `[Mr.X]`
+- [ ] App flow pipeline `[VIOREL]`
 
 ## Useful links
 - https://github.com/gstark0/Parq
