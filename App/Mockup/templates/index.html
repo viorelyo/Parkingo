@@ -62,26 +62,18 @@
         </script>
     </div>
 
-    <!-- <script>
-        $(document).ready(function() {
-            html2canvas($("#testdiv"), {
-                onrendered: function(canvas) {
-                    // canvas is the final rendered <canvas> element
-                    var myImage = canvas.toDataURL("./png.jpeg");
-                    window.open(myImage);
-                }
-            });
-        });
-    </script> -->
-
-    <form>
+    {# <form>
         <div>
             <label>Select file to upload</label>
             <input type="file" >
             <button type='button' onclick="uploadFrame()">Submit</button>
         </div>
-    </form>
+    </form> #}
     <div hidden id="spinner"></div>
+
+    <div id="parking-table">
+		<table id="spots-table"></table>
+	</div>
 </div>
 </body> 
 </html>
