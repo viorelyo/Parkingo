@@ -10,7 +10,6 @@ h1 {
 
 #coverContainer {
   height: fit-content;
-  position: relative;
 }
 
 #cover {
@@ -75,7 +74,7 @@ h1 {
 	padding-top: 2em;
 	padding-bottom: 5em;
 	position: absolute;
-  top: 80%;
+  top: 100%;
 	/* background-color: white; */
 	border-radius: 4px;
 	z-index: 1;

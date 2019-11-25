@@ -88,6 +88,6 @@ class Model:
         if self._model is None:
             raise Exception('Model is None')
 
-        image_array = cv2.resize(image, (self._height, self._width)).astype(np.float32)
+        #image_array = cv2.resize(image, (self._height, self._width)).astype(np.float32)
         image_array = np.expand_dims(image_array, axis = 0)
         return self._model.predict(image_array)

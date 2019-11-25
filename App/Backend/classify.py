@@ -25,6 +25,12 @@ def crop_img(img, crop_data):
 
     return cropped_img
 
+def get_crop_area(spot):
+    left_corner_x = int(spot['crop'][0] // 1.58)
+    left_corner_y = int(spot['crop'][1] // 1.45)
+    right_corner_x = int(spot['crop'][2] // 1.58)
+    right_corner_y = int(spot['crop'][3] // 1.45)
+
 def get_active_model():
     return get_vgg_model()  # We should push this to a configuration file
 
@@ -58,7 +64,8 @@ def update(db_path):
         parking_spots = parking['spots']
         updated_parking_spots = []
         for spot in parking_spots:
-            spot_image = crop_img(camera_image, spot['crop'])
+            crop_area = get_crop_area(spot)
+            spot_image = crop_img(camera_image, crop_area)
             spot_image = img_to_array(spot_image, path=False)
             spot['occupied'] = predict_cnn(spot_image)
             updated_parking_spots.append(spot)
@@ -88,14 +95,13 @@ def draw_boxes_for_image(img_path):
     q = Query()
     spots = db.search(q.url == img_path)[0]['spots']
     for spot in spots:
+        crop = get_crop_area(spot)
+        color = (0, 255, 0)
         if spot["occupied"]:
-            # create red box
-            cv2.rectangle(img, (spot['crop'][0], spot['crop'][1]),
-                          (spot['crop'][0] + spot['crop'][2], spot['crop'][1] + spot['crop'][3]), (0, 0, 255), 2)
-        else:
-            # create green box
-            cv2.rectangle(img, (spot['crop'][0], spot['crop'][1]),
-                          (spot['crop'][0] + spot['crop'][2], spot['crop'][1] + spot['crop'][3]), (0, 255, 0), 2)
+            color = (0, 0, 255)
+
+        cv2.rectangle(img, (crop[0], crop[1]),
+                        (crop[0] + crop[2], crop[1] + crop[3]), color, 2)
 
     global test_output
     output_path = test_output + img_path

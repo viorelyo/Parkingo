@@ -14,11 +14,7 @@
         <h1>ParkinGo</h1>
     </div>
     <div>
-        <!-- <video width="800" autoplay muted>
-            <source src="./static/media/sample.mp4" type="video/mp4">
-            Your browser does not support HTML5 video.
-        </video> -->
-        
+        <div id="highlightspot"></div>
         <div id="coverContainer">
             <div id="cover">
                 <div id="player"/>
@@ -35,6 +31,7 @@
             var player;
             var synced = false;
             var requestSet = false;
+            var spotsTable = [];
             function onYouTubeIframeAPIReady() {
                 player = new YT.Player('player', {
                 height: '400',
@@ -57,8 +54,6 @@
             function onPlayerReady(event) {
                 sendRequest()
                 event.target.playVideo();
-                //loadTable();
-                
             }
 
             function handleResponse(event) {
@@ -94,57 +89,75 @@
                 }
             }
 
-            function setTable(spotsJson) {
-                const spinner = document.getElementById("spinner");
-    spinner.removeAttribute('hidden');
-    
-    const parkDiv = document.getElementById('parking-table');
-    spinner.setAttribute('hidden', '');
-        console.log(spotsJson);
-
-        parkDiv.style.display = 'flex';
-
-        // get nr. of frames from db 
-        nrFrames = spotsJson.length;
-        
-        // extract data into matrix of spots
-        posTable = [];
-        spotsJson[nrFrames - 1]["spots"].forEach(function(spot) {
-            pos = spot['position'];
-            x = pos[0];
-            y = pos[1];
-            if (posTable[x] == undefined) {
-                posTable[x] = [];
+            class Spot {
+                constructor(_id, occupied, x, y, crop) {
+                    this.occupied = occupied;
+                    this.x = x;
+                    this.y = y;
+                    this._id = _id; 
+                    this.crop = crop;
+                }
             }
-            posTable[x][y] = spot['occupied'];
-        })
 
-        tableContent = '';
-        posTable.forEach(function(row) {
-            tableContent += '<tr>';
-            row.forEach(function(spot) {
-                if (!spot) {
-                    tableContent += '<td><div class="empty-spot"></div></td>';
+            function setTable(spotsJson) {
+                debugger;
+                spotsTable = [];
+
+                const spinner = document.getElementById("spinner");
+                spinner.removeAttribute('hidden');
+    
+                const parkDiv = document.getElementById('parking-table');
+                spinner.setAttribute('hidden', '');
+
+                parkDiv.style.display = 'flex';
+
+                // get nr. of frames from db 
+                nrFrames = spotsJson.length;
+        
+                // extract data into matrix of spots
+                posTable = [];
+                spotsJson[nrFrames - 1]["spots"].forEach(function(spot) {
+                    pos = spot['position'];
+                    x = pos[0];
+                    y = pos[1];
+                    if (posTable[x] == undefined) {
+                        posTable[x] = [];
+                    }
+                    newSpot = new Spot(spot['slot_id'], spot['occupied'], x, y, spot['crop']);
+                    spotsTable.push(newSpot);
+                    posTable[x][y] = newSpot;
+                });
+
+                tableContent = '';
+                posTable.forEach(function(row) {
+                    tableContent += '<tr>';
+                    row.forEach(function(spot) {
+                        class_string = (spot.occupied) ? "occupied-spot" : "empty-spot";
+                        tableContent += '<td><div class="' + class_string + '" onclick="spotShow(this)" id="s' + spot._id + '"></div></td>';
+                    });
+                    tableContent += '</tr>';
+                })
+                document.getElementById('spots-table').innerHTML = tableContent;
                 }
-                else {
-                    tableContent += '<td><div class="occupied-spot"></div></td>';
-                }
-            })
-            tableContent += '</tr>';
-        })
-        document.getElementById('spots-table').innerHTML = tableContent;
-        console.log(tableContent);
-}
+
+            function spotShow(element)  {
+                spot = spotsTable.filter(spot => ('s' + spot._id) === element.id)[0]
+                shownSpot = document.getElementById("highlightspot");
+                cover = document.getElementById("cover");
+                coverBoundingBox = cover.getClientRects();
+                shownSpot.style.position = "fixed";
+                shownSpot.style.backgroundColor = (spot.occupied) ? "red" : "green";
+                shownSpot.style.opacity = 0.3;
+                shownSpot.style.top = Math.round(coverBoundingBox[0].y) + 'px';
+                shownSpot.style.left = Math.round(coverBoundingBox[0].x) + 'px';
+                shownSpot.style.width = Math.round(spot.crop[0] - spot.crop[2]) + 'px';
+                shownSpot.style.height = Math.round(spot.crop[3] - spot.crop[1]) + 'px';
+                debugger;
+            }
+
+             
         </script>
     </div>
-
-    {# <form>
-        <div>
-            <label>Select file to upload</label>
-            <input type="file" >
-            <button type='button' onclick="uploadFrame()">Submit</button>
-        </div>
-    </form> #}
     <div hidden id="spinner"></div>
 
     <div id="parking-table">
