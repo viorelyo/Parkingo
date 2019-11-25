@@ -148,10 +148,11 @@
                 shownSpot.style.position = "fixed";
                 shownSpot.style.backgroundColor = (spot.occupied) ? "red" : "green";
                 shownSpot.style.opacity = 0.3;
-                shownSpot.style.top = Math.round(coverBoundingBox[0].y) + 'px';
-                shownSpot.style.left = Math.round(coverBoundingBox[0].x) + 'px';
-                shownSpot.style.width = Math.round(spot.crop[0] - spot.crop[2]) + 'px';
-                shownSpot.style.height = Math.round(spot.crop[3] - spot.crop[1]) + 'px';
+                shownSpot.style.top = Math.round(coverBoundingBox[0].y + (spot.crop[1]/1.45) + 10) + "px";
+                shownSpot.style.left = Math.round(coverBoundingBox[0].x + (spot.crop[0]/1.58)) + "px";
+                shownSpot.style.width = Math.round(spot.crop[2]) + "px";
+                shownSpot.style.height = Math.round(spot.crop[3]) + "px";
+                shownSpot.style.zIndex = 10;
                 debugger;
             }
 

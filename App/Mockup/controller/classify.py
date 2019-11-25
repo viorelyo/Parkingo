@@ -4,7 +4,9 @@ from PIL import Image
 import cv2
 from controller.config import *
 from controller.models import get_cnn_model, get_vgg_model
+from controller.utils import img_to_array
 
+import numpy as np
 import tensorflow as tf
 import time
 
@@ -12,7 +14,6 @@ def crop_img(img, crop_data):
     """
     Crop parking spot out of full-size image
     """
-    global width, height
     x = crop_data[0]
     y = crop_data[1]
     w = crop_data[2]
@@ -42,7 +43,7 @@ def predict_vgg(image):
 
 def predict_cnn(image):
     model = get_cnn_model()
-    prediction = model.predict(image)
+    prediction = model._model.predict(image)
     if prediction[0][0] > prediction[0][1]:
         return False
     return True
@@ -56,17 +57,18 @@ def predict(db_path, image):
         for spot in parking_spots:
             crop_area = get_crop_area(spot)
             spot_image = crop_img(image, crop_area)
-            print(str(type(spot_image)) + " ASDASDASDASDASDASD \n")
-            spot['occupied'] = predict_cnn(spot_image)
+            spot_image = img_to_array(spot_image, path=False)
+            spot['occupied'] = predict_cnn(np.array([spot_image]))
             updated_parking_spots.append(spot)
         tf.keras.backend.clear_session()
         db.update({'spots': updated_parking_spots}, eids=[parking.eid])
+    draw_all_boxes()
 
 def draw_all_boxes():
     db = TinyDB(db_path)
     parkings = db.all()
     for parking in parkings:
-        img_url = parking['url']
+        img_url = 'frame.png'
         draw_boxes_for_image(img_url)
 
 
@@ -76,7 +78,7 @@ def draw_boxes_for_image(img_path):
     """
 
     global test_dataset
-    full_path = test_dataset + img_path
+    full_path = 'frame.png'
     img = image = cv2.imread(full_path)
 
     global db_path
@@ -93,7 +95,7 @@ def draw_boxes_for_image(img_path):
                         (crop[0] + crop[2], crop[1] + crop[3]), color, 2)
 
     global test_output
-    output_path = test_output + img_path
+    output_path = 'prediction.png'
     cv2.imwrite(output_path, img)
 
 

@@ -24,10 +24,9 @@ def update_prediction():
     while 1:
         yt_video_wrapper.set_seconds(int(time.time() - start_time))
         image = yt_video_wrapper.get_current_image()
-        print(type(image))
-        camera_image = Image.open('frame.png')
-        print(type(camera_image))
-        predict('./controller/db.json', camera_image)
+        cv2.imwrite('frame.png', image)
+        pil_image = Image.open('frame.png')
+        predict('./controller/db.json', pil_image)
         time.sleep(configuration.get('timer'))
 
 @app.route('/status', methods=['GET'])
