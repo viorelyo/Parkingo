@@ -2,24 +2,24 @@
 import cv2
 import tensorflow as tf
 from tensorflow.keras.layers import Flatten, Dense, Dropout
-from tensorflow.keras.models import Model, Sequential, model_from_json
+from tensorflow.keras.models import Model, Sequential, model_from_json, load_model
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input
 from tensorflow.keras.applications.vgg16 import VGG16
 from tensorflow.keras.preprocessing.image import ImageDataGenerator,img_to_array, load_img
 import matplotlib.pyplot as plt
-%matplotlib inline
+import numpy as np
 
 def get_session_growth():
-    config = tf.ConfigProto()
+    config = tf.compat.v1.ConfigProto()
     config.gpu_options.allow_growth=True
-    sess = tf.Session(config=config)
+    sess = tf.compat.v1.Session(config=config)
     return sess
 
 sess = get_session_growth()
 
-class VGG16Classifier:
-    def __init__(self, image_size):
+class Model:
+    def __init__(self, image_size=(150,150)):
         self._height = image_size[0]
         self._width = image_size[1]
 
@@ -34,7 +34,7 @@ class VGG16Classifier:
         x = Flatten()(x)
         x = Dense(256, activation='relu')(x)
         x = Dropout(0.5)(x)
-        classifier_output = Dense(1, activation='sigmoid')(x)
+        classifier_output = Dense(2, activation='sigmoid')(x)
 
         self._model = Model(inputs = vgg_model.input, outputs = classifier_output)
         self._model.compile(loss='binary_crossentropy',
@@ -79,16 +79,15 @@ class VGG16Classifier:
         self._model.save_weights(weights_filename)
 
     def load_model(self, path):
-        self._model = tf.keras.load_model(path)
+        self._model = load_model(path)
 
     def save_model(self, path):
         tf.keras.save_model(self._model, path)
 
-    def predict(self, image_path):
+    def predict(self, image):
         if self._model is None:
             raise Exception('Model is None')
 
-        image = cv2.imread(test)
         image_array = cv2.resize(image, (self._height, self._width)).astype(np.float32)
         image_array = np.expand_dims(image_array, axis = 0)
         return self._model.predict(image_array)

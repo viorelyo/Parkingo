@@ -33,11 +33,13 @@
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
             var player;
+            var synced = false;
+            var requestSet = false;
             function onYouTubeIframeAPIReady() {
                 player = new YT.Player('player', {
                 height: '400',
                 width: '700',
-                videoId: 'W4bbp3PDKAc',
+                videoId: 'qwWaQi-Roc4',
                 events: {
                     'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
@@ -53,8 +55,36 @@
             }
 
             function onPlayerReady(event) {
+                sendRequest()
                 event.target.playVideo();
                 loadTable();
+            }
+
+            function handleResponse(event) {
+                if (event.target.response === "")
+                    return;
+
+                response = JSON.parse(event.target.response)
+
+                if (!requestSet) {
+                    requestSet = true;
+                    setTimeout(sendRequest, response.next_prediction * 1000);
+                }
+                if (!synced) {
+                    synced = true;
+                    player.seekTo(response.elapsed, true);
+                }
+                setTable(response.spots)
+            }
+
+            function sendRequest() {
+                requestSet = false;
+                const Http = new XMLHttpRequest();
+                const url = 'http://localhost:5000/status';
+                Http.open("GET", url)
+                Http.send();
+
+                Http.onreadystatechange = handleResponse;
             }
 
             function onPlayerStateChange(event) {
@@ -62,16 +92,49 @@
                     player.playVideo();
                 }
             }
+
+            function setTable(spotsJson) {
+                const spinner = document.getElementById("spinner");
+                spinner.removeAttribute('hidden');
+                
+                const parkDiv = document.getElementById('parking-table');
+                spinner.setAttribute('hidden', '');
+
+                parkDiv.style.display = 'flex';
+
+                // get nr. of frames from db 
+                nrFrames = spotsJson.length;
+                
+                // extract data into matrix of spots
+                posTable = [];
+                spotsJson[nrFrames - 1]["spots"].forEach(function(spot) {
+                    pos = spot['position'];
+                    x = pos[0];
+                    y = pos[1];
+                    if (posTable[x] == undefined) {
+                        posTable[x] = [];
+                    }
+                    posTable[x][y] = spot['occupied'];
+                })
+
+                tableContent = '';
+                posTable.forEach(function(row) {
+                    tableContent += '<tr>';
+                    row.forEach(function(spot) {
+                        if (!spot) {
+                            tableContent += '<td><div class="empty-spot"></div></td>';
+                        }
+                        else {
+                            tableContent += '<td><div class="occupied-spot"></div></td>';
+                        }
+                    })
+                    tableContent += '</tr>';
+                })
+                document.getElementById('spots-table').innerHTML = tableContent;
+            }
         </script>
     </div>
 
-    {# <form>
-        <div>
-            <label>Select file to upload</label>
-            <input type="file" >
-            <button type='button' onclick="uploadFrame()">Submit</button>
-        </div>
-    </form> #}
     <div hidden id="spinner"></div>
 
     <div id="parking-table">
