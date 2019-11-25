@@ -1,12 +1,10 @@
 import threading
 
-global CNNModel
-global VGGModel
-global lock
-
 from model import Model
 from config import *
 
+CNNModel = None
+VGGModel = None
 lock = threading.Lock()
 
 def get_cnn_model():
