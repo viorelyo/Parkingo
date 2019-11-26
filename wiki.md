@@ -6,8 +6,11 @@ The problem of finding available parking spaces for your car is a common problem
 
 #### Table of contents
 [Motivation](#motivation)
+
 [Algorithm](#algorithm)
+
 [Application design](#application-design)
+
 [Mind map](#mind-map)
 
 ### Motivation
