@@ -51,6 +51,8 @@ function loadTable() {
 }
 
 
+
+
 function uploadFrame() {
     var input = document.querySelector('input[type="file"]');
 

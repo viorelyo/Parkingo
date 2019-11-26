@@ -3,11 +3,11 @@ from utils import img_to_array
 from PIL import Image
 import cv2
 from config import *
+from models import get_cnn_model, get_vgg_model
 
 import tensorflow as tf
 import numpy as np
 import time
-
 
 def crop_img(img, crop_data):
     """
@@ -25,50 +25,52 @@ def crop_img(img, crop_data):
 
     return cropped_img
 
+def get_crop_area(spot):
+    left_corner_x = int(spot['crop'][0] // 1.58)
+    left_corner_y = int(spot['crop'][1] // 1.45)
+    right_corner_x = int(spot['crop'][2] // 1.58)
+    right_corner_y = int(spot['crop'][3] // 1.45)
 
-def update(model_path, db_path):
+def get_active_model():
+    return get_vgg_model()  # We should push this to a configuration file
+
+def predict_vgg(image):
+    model = get_vgg_model()
+    prediction = model.predict(image)
+    print(prediction)
+    if round(prediction[0][0]) is 1:
+        return True
+    return False
+
+def predict_cnn(image):
+    model = get_cnn_model()
+    prediction = model.predict(image)
+    if prediction[0][0] > prediction[0][1]:
+        return False
+    return True
+
+def update(db_path):
     """
     Update data for all parking spots in the db
     """
+    global test_dataset
     db = TinyDB(db_path)
     parkings = db.all()
 
-    all_images_proc_time = 0
     for parking in parkings:
-        global test_dataset
         camera_image = Image.open(test_dataset + parking['url'])
-
-        print('processing image ' + parking['url'])
 
         # Process each parking spot
         parking_spots = parking['spots']
         updated_parking_spots = []
-
-        single_img_proc_time = 0
-        model = tf.keras.models.load_model(model_path)
         for spot in parking_spots:
-
-            spot_image = crop_img(camera_image, spot['crop'])
+            crop_area = get_crop_area(spot)
+            spot_image = crop_img(camera_image, crop_area)
             spot_image = img_to_array(spot_image, path=False)
-            
-            start = time.time()
-            prediction = model.predict(np.array([spot_image]))
-            end = time.time()
-            if prediction[0][0] > prediction[0][1]:
-                spot['occupied'] = False
-            else:
-                spot['occupied'] = True
+            spot['occupied'] = predict_cnn(spot_image)
             updated_parking_spots.append(spot)
-
-            # tf.keras.backend.clear_session()
-            print(str(end-start))
-            single_img_proc_time += end-start
         tf.keras.backend.clear_session()
-        all_images_proc_time += single_img_proc_time
-        print("Total processing time: " + str(single_img_proc_time))
         db.update({'spots': updated_parking_spots}, eids=[parking.eid])
-
-    print("Average processing time per image: " + str(all_images_proc_time / len(parkings)))
 
 
 def draw_all_boxes():
@@ -93,14 +95,13 @@ def draw_boxes_for_image(img_path):
     q = Query()
     spots = db.search(q.url == img_path)[0]['spots']
     for spot in spots:
+        crop = get_crop_area(spot)
+        color = (0, 255, 0)
         if spot["occupied"]:
-            # create red box
-            cv2.rectangle(img, (spot['crop'][0], spot['crop'][1]),
-                          (spot['crop'][0] + spot['crop'][2], spot['crop'][1] + spot['crop'][3]), (0, 0, 255), 2)
-        else:
-            # create green box
-            cv2.rectangle(img, (spot['crop'][0], spot['crop'][1]),
-                          (spot['crop'][0] + spot['crop'][2], spot['crop'][1] + spot['crop'][3]), (0, 255, 0), 2)
+            color = (0, 0, 255)
+
+        cv2.rectangle(img, (crop[0], crop[1]),
+                        (crop[0] + crop[2], crop[1] + crop[3]), color, 2)
 
     global test_output
     output_path = test_output + img_path
@@ -108,4 +109,5 @@ def draw_boxes_for_image(img_path):
 
 if __name__ == "__main__":
     global db_path, model_path
-    update(model_path, db_path)
+    update(db_path)
+    draw_all_boxes()
