@@ -142,8 +142,9 @@ we used the sparse-categorical cross-entropy loss. The model was able to classif
 
 \par
 A different approach is using an already trained CNN and extending it to meet our classifying needs.
-For this approach, we chose VGG-16 CNN-Architecture with 'imagenet' weights, and extended it by adding (Flatten, Dense(256), Dropout) layers
-for feature-recognition, and finally a Dense(1) layer to classify into our categories: busy or free.
+For this approach, we chose VGG-16 CNN-Architecture with 'imagenet' weights, and extended it by adding a Flatten layer, a Dense(256) layer with ReLU as its activation
+function, followed by a Dropout layer for feature-recognition, and finally a Dense(1) layer to classify into two categories: busy or free.
+Additionally, for this model we used a Stochastic gradient descent (SGD) optimizer and the binary crossentropy loss function.
 With this approach, we obtained a 98.9\% accuarcy, with only 4 epochs of training.
 
 \begin{SCfigure}[0.5][h]
@@ -154,20 +155,27 @@ With this approach, we obtained a 98.9\% accuarcy, with only 4 epochs of trainin
 \end{SCfigure}
 
 \clearpage
-\subsection{Experimental Design}
-In order to detect available lots in a parking, our application "ParkinGo" uses a Machine Learning approach.
-Each lot is initially marked manually and stored into a database. By uploading the image of the entire parking area,
-our algorithm is able to iterate through all labeled regions of interest (ROIs) and scale each ROI from original image to the coresponding resolution 
-and then apply the Convolutional Neural Network model to predict which lot is occupied and which one is empty.
-While using the first approach to test the classification on 20 images, the average percentage of correctly classified parking spots from an input image was 96\%, as seen in the figure \ref{fig:resultimg}.
-
-
+For testing the models, we used a set of 20 full images from the \cite{cnrpark} dataset.
+Each image contained 54 parking slots which were initially marked manually and their coordinates stored into a database. By uploading the image of the entire parking area,
+our algorithm is able to iterate through all labeled regions of interest (ROIs) stored in the database, retrieve the patch corresponding to its coordinates from the entire image,
+scale each obtained ROI patch from the original image to the coresponding resolution (150x150px)
+and then apply the Convolutional Neural Network model to predict if it represents an empty or an occupied slot.
+While using the first approach to test the classification on this 20 test images, the average percentage of correctly classified parking spots from an input image was 96\%, as seen in the figure \ref{fig:resultimg}.
 
 \begin{SCfigure}[0.5][h]
 \caption{Obtained image after labeling the ROIs}
 \includegraphics[width=0.6\textwidth]{2015-11-12_0947}
 \label{fig:resultimg}
 \end{SCfigure}
+
+\subsection{Experimental Design}
+While our algorithm is capable of classifying parking spots in a single input image, the ultimate goal of our application is to obtain information about the availability of parking spots from a video. 
+For the demo, we used a recorded sequence from a live stream video of a parking lot in Hicksville, New York, USA. The location of each parking spot was manually marked and saved as coordinates into a database. 
+At a fixed interval of n seconds the current frame is extracted from the video and passed to the algorithm which processes each spot and updates the database with the predicted occupancy of each slot.
+The latest state of the data is then fetched by the client and displayed in form of a grid of red and green boxes, for occupied and free spots, respectively. 
+The position of the boxes in the grid corresponds to those of the spots, so the user can easily identify the location of the empty parking spot.
+
+In a real life scenario, the Youtube video could be replaced by a live stream from a parking lot surveillance camera so the app could provide real time information about the parking lot occupancy.
 
 \clearpage
 \bibliographystyle{sbc}

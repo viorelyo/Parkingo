@@ -272,3 +272,5 @@ TSWLatexianTemp*
 
 # Makeindex log files
 *.lpz
+
+.dist
