@@ -4,16 +4,16 @@ from PIL import Image
 import cv2
 from controller.config import *
 from controller.models import get_cnn_model, get_vgg_model
+from controller.utils import img_to_array
 
-import tensorflow as tf
 import numpy as np
+import tensorflow as tf
 import time
 
 def crop_img(img, crop_data):
     """
     Crop parking spot out of full-size image
     """
-    global width, height
     x = crop_data[0]
     y = crop_data[1]
     w = crop_data[2]
@@ -25,40 +25,66 @@ def crop_img(img, crop_data):
 
     return cropped_img
 
+def get_crop_area(spot):
+    # left_corner_x = int(spot['crop'][0] // 1.440625)
+    # left_corner_y = int(spot['crop'][1] // 1.577844)
+    # right_corner_x = int(spot['crop'][2] // 1.440625)
+    # right_corner_y = int(spot['crop'][3] // 1.577844)
+
+    # left_corner_x = int(spot['crop'][0] // 1.577844)
+    # left_corner_y = int(spot['crop'][1] // 1.440625)
+    # right_corner_x = int(spot['crop'][2] // 1.577844)
+    # right_corner_y = int(spot['crop'][3] // 1.440625)
+
+    left_corner_x = int(spot['crop'][0] // 1.577844)
+    left_corner_y = int(spot['crop'][1] // 1.577844)
+    right_corner_x = int(spot['crop'][2] // 1.577844)
+    right_corner_y = int(spot['crop'][3] // 1.577844)
+
+    return [left_corner_x, left_corner_y, right_corner_x, right_corner_y]
+
 def predict_vgg(image):
     model = get_vgg_model()
     prediction = model.predict(image)
-    print(prediction)
+    #print(prediction)
     if round(prediction[0][0]) is 1:
         return True
     return False
 
 def predict_cnn(image):
     model = get_cnn_model()
-    prediction = model.predict(image)
+    prediction = model._model.predict(image)
     if prediction[0][0] > prediction[0][1]:
         return False
     return True
 
 def predict(db_path, image):
-    global test_dataset
     db = TinyDB(db_path)
     parkings = db.all()
     for parking in parkings:
         parking_spots = parking['spots']
         updated_parking_spots = []
         for spot in parking_spots:
-            spot_image = crop_img(image, spot['crop'])
-            spot['occupied'] = predict_cnn(spot_image)
+            crop_area = get_crop_area(spot)
+            # print("crop area " + str(spot) + ": " + str(crop_area))
+            spot_image = crop_img(image, crop_area)
+            spot_image = img_to_array(spot_image, path=False)
+
+            # path = "./frames/" + str(spot["slot_id"]) + ".jpeg"
+            # im = Image.fromarray(spot_image)
+            # im.save(path)
+
+            spot['occupied'] = predict_cnn(np.array([spot_image]))
             updated_parking_spots.append(spot)
         tf.keras.backend.clear_session()
         db.update({'spots': updated_parking_spots}, eids=[parking.eid])
+    draw_all_boxes()
 
 def draw_all_boxes():
     db = TinyDB(db_path)
     parkings = db.all()
     for parking in parkings:
-        img_url = parking['url']
+        img_url = 'frame.png'
         draw_boxes_for_image(img_url)
 
 
@@ -68,7 +94,7 @@ def draw_boxes_for_image(img_path):
     """
 
     global test_dataset
-    full_path = test_dataset + img_path
+    full_path = 'frame.png'
     img = image = cv2.imread(full_path)
 
     global db_path
@@ -76,18 +102,18 @@ def draw_boxes_for_image(img_path):
     q = Query()
     spots = db.search(q.url == img_path)[0]['spots']
     for spot in spots:
+        crop = get_crop_area(spot)
+        color = (0, 255, 0)
         if spot["occupied"]:
-            # create red box
-            cv2.rectangle(img, (spot['crop'][0], spot['crop'][1]),
-                          (spot['crop'][0] + spot['crop'][2], spot['crop'][1] + spot['crop'][3]), (0, 0, 255), 2)
-        else:
-            # create green box
-            cv2.rectangle(img, (spot['crop'][0], spot['crop'][1]),
-                          (spot['crop'][0] + spot['crop'][2], spot['crop'][1] + spot['crop'][3]), (0, 255, 0), 2)
+            color = (0, 0, 255)
+
+        cv2.rectangle(img, (crop[0], crop[1]),
+                        (crop[0] + crop[2], crop[1] + crop[3]), color, 2)
 
     global test_output
-    output_path = test_output + img_path
+    output_path = 'prediction.png'
     cv2.imwrite(output_path, img)
+
 
 if __name__ == "__main__":
     global db_path, model_path

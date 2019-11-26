@@ -1,6 +1,6 @@
 import numpy as np
 from PIL import Image
-from config import width, height, channels
+from controller.config import width, height, channels
 
 
 def unison_shuffled_copies(a, b):
