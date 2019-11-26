@@ -143,8 +143,8 @@ we used the sparse-categorical cross-entropy loss. The model was able to classif
 \par
 A different approach is using an already trained CNN and extending it to meet our classifying needs.
 For this approach, we chose VGG-16 CNN-Architecture with 'imagenet' weights, and extended it by adding a Flatten layer, a Dense(256) layer with ReLU as its activation
-function, followed by a Dropout layer for feature-recognition, and finally a Dense(1) layer to classify into two categories: busy or free.
-Additionally, for this model we used a Stochastic gradient descent (SGD) optimizer and the binary crossentropy loss function.
+function, followed by a Dropout layer for feature-recognition, and finally a Dense(2) layer to classify into two categories: busy or free.
+Additionally, for this model we used a Stochastic gradient descent (SGD) optimizer and the sparse-categorical crossentropy loss function.
 With this approach, we obtained a 98.9\% accuarcy, with only 4 epochs of training.
 
 \begin{SCfigure}[0.5][h]

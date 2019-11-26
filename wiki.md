@@ -30,9 +30,5 @@ For the demo, we used a recorded sequence from a live stream video of a parking 
 
 ### Mind map
 
-In a real life scenario, the Youtube video could be replaced by a live stream from a parking lot surveillance camera so the app could provide real time information about the parking lot occupancy.
-
-Challenges that we should expect will be related to the scalability of the application. We should, for example, take into 
-consideration that the application should work in different weather conditions. We also focus on the accessibility 
-of the processed information in real-time, for which we will try to compare different AI algorithms and will choose 
-the one with the best balance between accurate results and small processing time.
+In a real life scenario, the Youtube video could be replaced by a live stream from a parking lot surveillance camera so the app could provide real time information about the parking lot occupancy. Another thing to take into consideration would be different weather and lightning conditions. We also focus on the accessibility 
+of the processed information in real-time, for which we will try to optimize our model to achive the best balance between accurate results and small processing time.

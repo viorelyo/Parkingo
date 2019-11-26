@@ -26,16 +26,6 @@ def crop_img(img, crop_data):
     return cropped_img
 
 def get_crop_area(spot):
-    # left_corner_x = int(spot['crop'][0] // 1.440625)
-    # left_corner_y = int(spot['crop'][1] // 1.577844)
-    # right_corner_x = int(spot['crop'][2] // 1.440625)
-    # right_corner_y = int(spot['crop'][3] // 1.577844)
-
-    # left_corner_x = int(spot['crop'][0] // 1.577844)
-    # left_corner_y = int(spot['crop'][1] // 1.440625)
-    # right_corner_x = int(spot['crop'][2] // 1.577844)
-    # right_corner_y = int(spot['crop'][3] // 1.440625)
-
     left_corner_x = int(spot['crop'][0] // 1.577844)
     left_corner_y = int(spot['crop'][1] // 1.577844)
     right_corner_x = int(spot['crop'][2] // 1.577844)
@@ -69,11 +59,6 @@ def predict(db_path, image):
             # print("crop area " + str(spot) + ": " + str(crop_area))
             spot_image = crop_img(image, crop_area)
             spot_image = img_to_array(spot_image, path=False)
-
-            # path = "./frames/" + str(spot["slot_id"]) + ".jpeg"
-            # im = Image.fromarray(spot_image)
-            # im.save(path)
-
             spot['occupied'] = predict_cnn(np.array([spot_image]))
             updated_parking_spots.append(spot)
         tf.keras.backend.clear_session()

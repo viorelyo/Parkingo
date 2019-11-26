@@ -24,11 +24,13 @@ yt_video_wrapper = None
 
 def update_prediction():
     while True:
-        yt_video_wrapper.set_seconds(int(time.time() - start_time))
+        frame_time = int(time.time() - start_time)
+        yt_video_wrapper.set_seconds(frame_time)
         image = yt_video_wrapper.get_current_image()
         cv2.imwrite('frame.png', image)
         pil_image = Image.open('frame.png')
         predict('./controller/db.json', pil_image)
+        print("updated ", frame_time)
         time.sleep(configuration.get('timer'))
 
 
