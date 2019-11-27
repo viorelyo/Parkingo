@@ -1,6 +1,6 @@
 # Algorithms
 
-<p align="center"><img src="/images/logo.jpg" width="500"></p>  
+<p align="center"><img src="./images/logo.jpg" width="500"></p>  
 
 ## CNN - Tensorflow
 Deep Learning approach - Applying Convolutional Neural Networks to each parking spot.  
