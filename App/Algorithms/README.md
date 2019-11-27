@@ -10,9 +10,13 @@ Predictions are made on images from 8th camera from `cnrpark.it`.
     - dataset location is CNN-Tensorflow/dataset/free and CNN-Tensorflow/dataset/busy
 2. Create venv and install all dependencies
     - virtualenv --system-site-packages -p python ./venv
+    - ./venv/Scripts/activate
     - pip install tensorflow
     - pip install opencv-python
     - pip install pillow
     - pip install tinydb
-3. Run train.py to train the model
-4. Run test.py to classify parking spots from /test_dataset (see output in /test_output)
+    - pip install flask
+    - pip install flask_cors
+    - pip install matplotlib
+    - pip install pafy
+    - pip install youtube_dl
