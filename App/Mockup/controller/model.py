@@ -79,7 +79,7 @@ class Model:
         self._model.save_weights(weights_filename)
 
     def load_model(self, path):
-        self.e_modl = load_model(path)
+        self._model = load_model(path)
 
     def save_model(self, path):
         tf.keras.save_model(self._model, path)
