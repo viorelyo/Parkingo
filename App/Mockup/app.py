@@ -3,6 +3,7 @@ from flask_cors import CORS
 from controller.repository import Repository
 from controller.classify import predict
 from controller.frame_capture import YoutubeVideoWrapper
+from controller.utils import increase_contrast
 from tinydb import TinyDB, Query
 import time
 from werkzeug.utils import secure_filename
@@ -27,6 +28,7 @@ def update_prediction():
         frame_time = int(time.time() - start_time)
         yt_video_wrapper.set_seconds(frame_time)
         image = yt_video_wrapper.get_current_image()
+        image = increase_contrast(image)
         cv2.imwrite('frame.png', image)
         pil_image = Image.open('frame.png')
         predict('./controller/db.json', pil_image)
@@ -42,7 +44,7 @@ def index():
 @app.route('/spots', methods=['GET'])
 def get_spots():
     spots = repo.get_all()
-    time.sleep(5)
+    # time.sleep(5)
     return jsonify(spots)
 
 

@@ -177,11 +177,15 @@ The position of the boxes in the grid corresponds to those of the spots, so the 
 
 In a real life scenario, the Youtube video could be replaced by a live stream from a parking lot surveillance camera so the app could provide real time information about the parking lot occupancy.
 
+\clearpage
+
 \begin{SCfigure}[0.5][h]
   \caption{App flow diagram}
   \includegraphics[width=1.0\textwidth]{flow}
   \label{fig:flowimg}
 \end{SCfigure}
+
+To measure the performance of our algorithm, we used 20 randomly selected frames from the video. The algorithm was able to classify parking spots with an overall average accuracy of 87\%. Occupied slots were detected with a precision of 100\% an a recall of 75\%, while free slots achived 75\% precision and 100\% recall (results could be viewed in the table below) This means that when a spot is classified as occupied, the classification is almost always done right - there were no free spots that the algorithm considered occupied. As a result we could say that if a free spot is present in the parking lot, it will be most probably detected. The classification of occupied slots has a lower precision, being sometimes classified as free. Some slots tend to be wrongly classified more often than others: those that are in the far back of the parking slot, due to the lower resolution of the slot cropped out of the full image, and also those that have a car with a color similar to the color of the ground.
 
 \clearpage
 \bibliographystyle{sbc}
