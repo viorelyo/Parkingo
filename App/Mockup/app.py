@@ -64,7 +64,7 @@ def get_status():
     response = {}
     response['spots'] = TinyDB('./controller/db.json').all()
     response['elapsed'] = time.time() - start_time
-    response['next_prediction'] = 30
+    response['next_prediction'] = 8
     return jsonify(response)
 
 
