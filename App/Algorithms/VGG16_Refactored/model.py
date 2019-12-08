@@ -29,7 +29,6 @@ def load_images(dataset_location):
 			data_x[i] = img_arr
 			data_y[i] = 0.
 			i += 1
-			print(i)
 		except ValueError as e:
 			print(e)
 			print(img, '<--- Does not work')
@@ -97,6 +96,6 @@ def train():
     checkpoint = tf.keras.callbacks.ModelCheckpoint("vgg16_1.h5", monitor='val_acc', verbose=1, save_best_only=True, save_weights_only=False, mode='auto', period=1)
     early = tf.keras.callbacks.EarlyStopping(monitor='val_acc', min_delta=0, patience=20, verbose=1, mode='auto')
     
-    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-    model.fit(data_x, data_y, steps_per_epoch=100, validation_split=0.33, validation_steps=10, epochs=100, callbacks=[checkpoint, early])
+    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+    model.fit(data_x, data_y, steps_per_epoch=100, validation_split=0.3, validation_steps=10, epochs=100, callbacks=[checkpoint, early])
 	# model.save('model.h5')
