@@ -29,7 +29,6 @@ def load_images(dataset_location):
 			data_x[i] = img_arr
 			data_y[i] = 0.
 			i += 1
-			print(i)
 		except ValueError as e:
 			print(e)
 			print(img, '<--- Does not work')
