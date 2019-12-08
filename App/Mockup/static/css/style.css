@@ -8,6 +8,10 @@ h1 {
     font-size: 35px;
 }
 
+#mainlogo {
+  width: 100%;
+}
+
 #coverContainer {
   height: fit-content;
 }
