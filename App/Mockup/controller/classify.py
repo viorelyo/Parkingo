@@ -44,6 +44,7 @@ def predict_vgg(image):
 def predict_cnn(image):
     model = get_cnn_model()
     prediction = model._model.predict(image)
+    print(prediction)
     if prediction[0][0] > prediction[0][1]:
         return False
     return True
@@ -59,7 +60,7 @@ def predict(db_path, image):
             # print("crop area " + str(spot) + ": " + str(crop_area))
             spot_image = crop_img(image, crop_area)
             spot_image = img_to_array(spot_image, path=False)
-            spot['occupied'] = predict_vgg(np.array([spot_image]))
+            spot['occupied'] = predict_cnn(np.array([spot_image]))
             updated_parking_spots.append(spot)
         tf.keras.backend.clear_session()
         db.update({'spots': updated_parking_spots}, eids=[parking.eid])
