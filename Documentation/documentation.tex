@@ -5,6 +5,7 @@
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage[rightcaption]{sidecap}
+\usepackage{multirow}
 
 \graphicspath{ {./images/} }
      
@@ -171,9 +172,9 @@ While using the first approach to test the classification on this 20 test images
 \subsection{Experimental Design}
 While our algorithm is capable of classifying parking spots in a single input image, the ultimate goal of our application is to obtain information about the availability of parking spots from a video. 
 For the demo, we used a recorded sequence from a live stream video of a parking lot in Hicksville, New York, USA. The location of each parking spot was manually marked and saved as coordinates into a database. 
-At a fixed interval of n seconds the current frame is extracted from the video and passed to the algorithm which processes each spot and updates the database with the predicted occupancy of each slot.
+At a fixed interval of 8 seconds the current frame is extracted from the video and passed to the algorithm which processes each spot and updates the database with the predicted occupancy of each slot.
 The latest state of the data is then fetched by the client and displayed in form of a grid of red and green boxes, for occupied and free spots, respectively. 
-The position of the boxes in the grid corresponds to those of the spots, so the user can easily identify the location of the empty parking spot.
+The position of the boxes in the grid corresponds to those of the spots, so the user can easily identify the location of the empty parking spot. In addition, by clicking on a cell of the table, the exact spot is highlighted in the video.
 
 In a real life scenario, the Youtube video could be replaced by a live stream from a parking lot surveillance camera so the app could provide real time information about the parking lot occupancy.
 
@@ -185,7 +186,32 @@ In a real life scenario, the Youtube video could be replaced by a live stream fr
   \label{fig:flowimg}
 \end{SCfigure}
 
-To measure the performance of our algorithm, we used 20 randomly selected frames from the video. The algorithm was able to classify parking spots with an overall average accuracy of 87\%. Occupied slots were detected with a precision of 100\% an a recall of 75\%, while free slots achived 75\% precision and 100\% recall (results could be viewed in the table below) This means that when a spot is classified as occupied, the classification is almost always done right - there were no free spots that the algorithm considered occupied. As a result we could say that if a free spot is present in the parking lot, it will be most probably detected. The classification of occupied slots has a lower precision, being sometimes classified as free. Some slots tend to be wrongly classified more often than others: those that are in the far back of the parking slot, due to the lower resolution of the slot cropped out of the full image, and also those that have a car with a color similar to the color of the ground.
+To measure the performance of our algorithms, we used 20 randomly selected frames from the video. Our CNN model with the custom architecture was able to classify parking spots with an overall average accuracy of 87\%. Occupied slots were detected with a precision of 100\% an a recall of 75\%, while free slots achived 75\% precision and 100\% recall (results could be viewed in \textbf{Table} \ref{tab:metrics}) This means that when a spot is classified as occupied, the classification is almost always done right - there were no free spots that the algorithm considered occupied. As a result we could say that if a free spot is present in the parking lot, it will be most probably detected. The classification of occupied slots has a lower precision, being sometimes classified as free. Some slots tend to be wrongly classified more often than others: those that are in the far back of the parking slot, due to the lower resolution of the slot cropped out of the full image, and also those that have a car with a color similar to the color of the ground.
+
+While using the same approach to test the performance of the VGG-16 model, we obtained similar results, although surprisingly, the metrics were lower than for our custom model, achieving 82\% accuracy. The tendency to classify free spots correctly better than occupied ones remained the same, the precision reaching 93\% for busy and 72\% for free spots, respectively. 
+
+Based on a number of factors, we decided to further use our custom model for the app. Firstly, the experimental results showed a slightly better performance in terms of accuracy, precision and recall for the custom model than for the VGG-16 model. Secondly, we wanted to experiment with training the model so it could achive better results, and doing this with the VGG-16 architecture would have required significantly more computational power and execution time. This were the main factors that convinced us to further fine tune the custom model.
+
+To improve the accuracy of the model, we first decided to increase the number of train epochs. We added Keras callbacks to monitor the accuracy, save the model after the completion of each epoch in case the accuracy improved and stop the training in case the accuracy did not improve in the last n epochs. This approach created a model that was trained in 10 epochs and achived a validation accuracy of 99\%.
+As the classification result is dependent not only by the model but also by the input it receives, we decided to add a preproccessing step to the extracted frames. For this, we used the opencv implementation of Contrast Limited Adaptive Histogram Equalization for enhancing the contrast of the image.
+
+Measuring the performance metrics of the algorithm after adding the improvements on the same 20 frames as before showed a significant increase in accuracy, precision and recall, all of them reaching 97-99\% as seen in \textbf{Table} \ref{tab:metrics}
+
+\begin{table}[htb]
+  \begin{centering}
+  \begin{tabular}{|l|l|l|l|l|l|}
+  \hline
+  \multicolumn{1}{|c|}{\multirow{2}{*}{Model}} & \multirow{2}{*}{Accuracy} & \multicolumn{2}{c|}{Busy} & \multicolumn{2}{c|}{Free} \\ \cline{3-6} 
+  \multicolumn{1}{|c|}{}                       &                           & Precision     & Recall    & Precision     & Recall    \\ \hline
+  Custom CNN model                             & 0.86                      & 1             & 0.77      & 0.74          & 1         \\ \hline
+  VGG-16 model                                 & 0.82                      & 0.93          & 0.77      & 0.72          & 0.91    \\ \hline
+  Custom CNN model with improvements           & 0.98                      & 0.99          & 0.98      & 0.97          & 0.99      \\ \hline
+  \end{tabular}
+  \caption{This is a table template}
+  \label{tab:metrics}
+  \end{centering}
+  \end{table}
+
 
 \clearpage
 \bibliographystyle{sbc}
