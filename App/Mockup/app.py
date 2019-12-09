@@ -76,5 +76,3 @@ if __name__ == '__main__':
     update_thread = threading.Thread(target=update_prediction)
     update_thread.start()
     app.run(host= '0.0.0.0', port=5000)
-    # app.run(debug = True)
-

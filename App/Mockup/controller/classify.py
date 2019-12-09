@@ -36,7 +36,6 @@ def get_crop_area(spot):
 def predict_vgg(image):
     model = get_vgg_model()
     prediction = model.predict(image)
-    #print(prediction)
     if round(prediction[0][0]) is 1:
         return True
     return False
@@ -56,10 +55,9 @@ def predict(db_path, image):
         updated_parking_spots = []
         for spot in parking_spots:
             crop_area = get_crop_area(spot)
-            # print("crop area " + str(spot) + ": " + str(crop_area))
             spot_image = crop_img(image, crop_area)
-            spot_image = img_to_array(spot_image, path=False)
-            spot['occupied'] = predict_cnn(np.array([spot_image]))
+            spot_image_array = img_to_array(spot_image, path=False)
+            spot['occupied'] = predict_cnn(np.array([spot_image_array]))
             updated_parking_spots.append(spot)
         tf.keras.backend.clear_session()
         db.update({'spots': updated_parking_spots}, eids=[parking.eid])
