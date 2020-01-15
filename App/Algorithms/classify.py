@@ -44,6 +44,8 @@ def update(model_path, db_path):
         updated_parking_spots = []
 
         single_img_proc_time = 0
+        
+        global model_path
         model = tf.keras.models.load_model(model_path)
         for spot in parking_spots:
 

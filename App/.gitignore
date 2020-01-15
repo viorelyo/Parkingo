@@ -1,6 +1,9 @@
+*/.idea
+*/.dist
+*/__pycache__
+*/.vscode
 Algorithms/venv/
 venv/
 Algorithms/Test/test_dataset/S/
-../.idea
-../.dist
-*/__pycache__
+Mockup/frame.png
+Mockup/prediction.png

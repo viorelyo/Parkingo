@@ -22,3 +22,10 @@ Predictions are made on images from 8th camera from `cnrpark.it`.
     - pip install matplotlib
     - pip install pafy
     - pip install youtube_dl
+3. For training the model:
+    - call train() from model.py
+4. For testing the model:
+    - Download cnrpark+ext dataset and select some images from the 8th camera taken in sunny weather.
+    - Put those images in test_dataset/S
+    - Put camera8_boxes.csv and camera8_labels.txt in test_dataset/
+    - Run test.py and access test_output to see the results
