@@ -12,7 +12,6 @@ Living in a big city, it's a common problem to find available parking spaces for
 ## Links
 [Documentation](./Documentation.pdf)  
 [Wiki](./wiki.md)
-
 [App](./App/README.md)
 
 ## Contributors
