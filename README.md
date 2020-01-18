@@ -1,4 +1,4 @@
-# Parkingo
+# ParkinGo
 <p align="center"><img src="./images/logo.jpg" width="500"></p>  
 
 ## Goals
